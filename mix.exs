@@ -22,7 +22,8 @@ defmodule EslNews.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.6"}
+      {:cowboy, "~> 2.9"},
+      {:credo, "~> 1.6", only: [:dev, :test]}
     ]
   end
 end
