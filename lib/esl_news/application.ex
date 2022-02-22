@@ -12,8 +12,10 @@ defmodule EslNews.Application do
       # {EslNews.Worker, arg}
     ]
 
-    dispatch = EslNews.Router.dispatch()
-    {:ok, _} = :cowboy.start_clear(:http, [{:port, 8080}], %{env: %{dispatch: dispatch}})
+    ranch_opts = Application.fetch_env!(:esl_news, :cowboy)
+
+    {:ok, _} =
+      :cowboy.start_clear(:http, ranch_opts, %{env: %{dispatch: EslNews.Router.dispatch()}})
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

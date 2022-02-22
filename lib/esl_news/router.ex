@@ -4,6 +4,7 @@ defmodule EslNews.Router do
     :cowboy_router.compile([{:_, routes()}])
   end
 
+  @spec routes :: [:cowboy_router.route_path(), ...]
   def routes() do
     [
       {"/", :cowboy_static, {:priv_file, :esl_news, "index.html", [{:charset, "utf-8"}]}},
