@@ -6,6 +6,9 @@ defmodule EslNews.Handlers.Stories do
   use EslNews.Handler
   alias EslNews.Store.Story
 
+  @doc """
+  Endpoint of the :cowboy_rest middleware chain. Renders the Stories list as JSON
+  """
   @impl true
   @spec response(:cowboy_req.req(), any) :: {binary, :cowboy_req.req(), any}
   def response(request, state) do

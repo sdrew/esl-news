@@ -6,6 +6,9 @@ defmodule EslNews.Handlers.Story do
   use EslNews.Handler
   alias EslNews.Store.Story
 
+  @doc """
+  :cowboy_rest middleware to abort a request with a 404 :not_found status if the Story ID doesn't exist
+  """
   @impl true
   @spec resource_exists(:cowboy_req.req(), any) ::
           {boolean, :cowboy_req.req(), any}
@@ -34,6 +37,9 @@ defmodule EslNews.Handlers.Story do
     end
   end
 
+  @doc """
+  Endpoint of the :cowboy_rest middleware chain. Renders the Story as JSON
+  """
   @impl true
   @spec response(:cowboy_req.req(), any) :: {binary, :cowboy_req.req(), any}
   def response(request, state) do
