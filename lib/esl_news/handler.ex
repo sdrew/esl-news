@@ -22,6 +22,11 @@ defmodule EslNews.Handler do
                :cowboy_req.req(), any}
               | {:stop, :cowboy_req.req(), any}
               | {switch_handler(), :cowboy_req.req(), any}
+  @callback resource_exists(:cowboy_req.req(), any) ::
+              {boolean, :cowboy_req.req(), any}
+              | {:stop, :cowboy_req.req(), any}
+              | {switch_handler(), :cowboy_req.req(), any}
+  @optional_callbacks resource_exists: 2
 
   @doc """
   `EslNews.Handler` behaviour callbacks

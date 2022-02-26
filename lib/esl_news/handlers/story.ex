@@ -4,14 +4,42 @@ defmodule EslNews.Handlers.Story do
   Implements @behaviour for `EslNews.Handler`
   """
   use EslNews.Handler
+  alias EslNews.Store.Story
+
+  @impl true
+  @spec resource_exists(:cowboy_req.req(), any) ::
+          {boolean, :cowboy_req.req(), any}
+          | {:stop, :cowboy_req.req(), any}
+          | {switch_handler(), :cowboy_req.req(), any}
+  def resource_exists(request, state) do
+    Logger.request(request, state)
+
+    id =
+      Handler.request_params(request, permit: [])
+      |> Map.get(:id)
+      |> Handler.to_integer(0)
+      |> List.wrap()
+      |> Kernel.++([0])
+      |> Enum.max()
+
+    state = state ++ [id: id]
+
+    case Story.find(id) do
+      {:ok, story} ->
+        state = state ++ [story: story]
+        {true, request, state}
+
+      {:not_found, _} ->
+        {false, request, state}
+    end
+  end
 
   @impl true
   @spec response(:cowboy_req.req(), any) :: {binary, :cowboy_req.req(), any}
   def response(request, state) do
-    Logger.request(request, state)
+    Logger.resource(state)
 
-    params = Handler.request_params(request, permit: [])
-
-    {Jason.encode!(params), request, state}
+    {:story, story} = List.keyfind!(state, :story, 0)
+    {Jason.encode!(story), request, state}
   end
 end

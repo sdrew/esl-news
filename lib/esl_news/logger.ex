@@ -16,6 +16,17 @@ defmodule EslNews.Logger do
     Logger.info("#{method} #{path}")
   end
 
+  @doc """
+  Log the Story in a request state with a timestamp, the Story ID and title
+  """
+  @spec resource([Keyword.t()]) :: :ok
+  def resource(state) do
+    {:id, id} = List.keyfind!(state, :id, 0)
+    {:story, story} = List.keyfind!(state, :story, 0)
+
+    Logger.info("Rendered Story ##{id} - #{story.title}")
+  end
+
   defp request_path(path, ""), do: path
   defp request_path(path, qs), do: "#{path}?#{qs}"
 end
