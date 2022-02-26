@@ -10,6 +10,7 @@ defmodule EslNews.Application do
     children = [
       # Starts a worker by calling: EslNews.Worker.start_link(arg)
       # {EslNews.Worker, arg}
+      {EslNews.Store.Schema, []}
     ]
 
     ranch_opts = Application.fetch_env!(:esl_news, :cowboy)
