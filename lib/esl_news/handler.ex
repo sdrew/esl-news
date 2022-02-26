@@ -77,6 +77,37 @@ defmodule EslNews.Handler do
   end
 
   @doc """
+  Extract pagination params from URI query string.
+
+  ## Examples
+    iex> EslNews.Handler.pagination_params(%{qs: "page=4&per=20"})
+    {4, 20}
+
+    iex> EslNews.Handler.pagination_params(%{qs: "page=-3"})
+    {1, 10}
+  """
+  @spec pagination_params(:cowboy_req.req()) :: {non_neg_integer, non_neg_integer}
+  def pagination_params(request) do
+    params = request_params(request, permit: [:page, :per])
+
+    page =
+      Map.get(params, :page)
+      |> to_integer(1)
+      |> List.wrap()
+      |> Kernel.++([1])
+      |> Enum.max()
+
+    per =
+      Map.get(params, :per)
+      |> to_integer(10)
+      |> List.wrap()
+      |> Kernel.++([1])
+      |> Enum.max()
+
+    {page, per}
+  end
+
+  @doc """
   Extract request params from path bindings and URI query string.
   - For query string params, only the permitted values will be returned,
     and they will not override path binding values.
@@ -95,6 +126,20 @@ defmodule EslNews.Handler do
   def request_params(request, opts) do
     permitted_query_params(request, opts)
     |> Map.merge(:cowboy_req.bindings(request))
+  end
+
+  @spec to_integer(binary, integer) :: integer
+  def to_integer(param, default \\ 0)
+  def to_integer(nil, default), do: default
+
+  def to_integer(param, default) do
+    case Integer.parse(param) do
+      {parsed, _} ->
+        parsed
+
+      :error ->
+        default
+    end
   end
 
   defp permitted_query_params(request, opts) do

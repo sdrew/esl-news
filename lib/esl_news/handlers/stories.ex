@@ -4,14 +4,20 @@ defmodule EslNews.Handlers.Stories do
   Implements @behaviour for `EslNews.Handler`
   """
   use EslNews.Handler
+  alias EslNews.Store.Story
 
   @impl true
   @spec response(:cowboy_req.req(), any) :: {binary, :cowboy_req.req(), any}
   def response(request, state) do
     Logger.request(request, state)
 
-    params = Handler.request_params(request, permit: [:page, :per])
+    {page, per} = Handler.pagination_params(request)
+    offset = (page - 1) * per
 
-    {Jason.encode!(params), request, state}
+    stories =
+      Story.all()
+      |> Enum.slice(offset, per)
+
+    {Jason.encode!(stories), request, state}
   end
 end

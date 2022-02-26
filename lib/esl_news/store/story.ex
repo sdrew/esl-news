@@ -1,9 +1,15 @@
 defmodule EslNews.Store.Story do
   require Record
 
+  @required_keys [:id, :by, :title, :type]
+  @optional_keys []
+  @struct_keys @required_keys ++ @optional_keys
+
   @type t :: %__MODULE__{id: non_neg_integer, by: String.t(), title: String.t(), type: String.t()}
-  @enforce_keys [:id, :by, :title, :type]
-  defstruct [:id, :by, :title, :type]
+
+  @enforce_keys @required_keys
+  @derive {Jason.Encoder, only: @struct_keys}
+  defstruct @struct_keys
 
   @doc """
   List all existing EslNews.Store.Story records
