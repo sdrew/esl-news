@@ -23,7 +23,9 @@ defmodule EslNews.MixProject do
   defp deps do
     [
       {:cowboy, "~> 2.9"},
-      {:credo, "~> 1.6", only: [:dev, :test]}
+      {:credo, "~> 1.6", only: [:dev, :test]},
+      {:hackney, "~> 1.18"},
+      {:tesla, "~> 1.4"}
     ]
   end
 end
