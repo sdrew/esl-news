@@ -5,6 +5,8 @@ defmodule EslNews.Logger do
   `EslNews.Logger` provides logging helpers for `EslNews.Handlers`
   """
 
+  @should_log Application.fetch_env!(:esl_news, :env) != :test
+
   @doc """
   Log a `:cowboy_req` with a timestamp, method, path and optionally the query params
   """
@@ -13,7 +15,7 @@ defmodule EslNews.Logger do
     method = :cowboy_req.method(request)
     path = request_path(:cowboy_req.path(request), :cowboy_req.qs(request))
 
-    Logger.info("#{method} #{path}")
+    if @should_log, do: Logger.info("#{method} #{path}")
   end
 
   @doc """
@@ -24,7 +26,7 @@ defmodule EslNews.Logger do
     {:id, id} = List.keyfind!(state, :id, 0)
     {:story, story} = List.keyfind!(state, :story, 0)
 
-    Logger.info("Rendered Story ##{id} - #{story.title}")
+    if @should_log, do: Logger.info("Rendered Story ##{id} - #{story.title}")
   end
 
   defp request_path(path, ""), do: path
