@@ -1,11 +1,24 @@
 defmodule EslNews.Store.Story do
   require Record
 
-  @required_keys [:id, :by, :title, :type]
-  @optional_keys []
+  @required_keys [:id]
+  @optional_keys [:by, :descendants, :score, :time, :title, :type, :url]
   @struct_keys @required_keys ++ @optional_keys
+  @record_tuple_size Enum.count(@struct_keys) + 1
 
-  @type t :: %__MODULE__{id: non_neg_integer, by: String.t(), title: String.t(), type: String.t()}
+  @type r ::
+          {__MODULE__, non_neg_integer, String.t() | nil, non_neg_integer, integer,
+           non_neg_integer | nil, String.t() | nil, String.t() | nil, String.t() | nil}
+  @type t :: %__MODULE__{
+          id: non_neg_integer,
+          by: String.t(),
+          descendants: non_neg_integer,
+          score: integer,
+          time: non_neg_integer,
+          title: String.t(),
+          type: String.t(),
+          url: String.t() | nil
+        }
 
   @enforce_keys @required_keys
   @derive {Jason.Encoder, only: @struct_keys}
@@ -25,20 +38,6 @@ defmodule EslNews.Store.Story do
 
     list
     |> Enum.map(fn x -> __MODULE__.decode(x) end)
-  end
-
-  @doc """
-  Attributes list for :mnesia table schema definition.
-  :id must always be the first attribute
-  """
-  @spec as_schema :: [atom, ...]
-  def as_schema() do
-    attrs =
-      struct(__MODULE__, [])
-      |> Map.keys()
-      |> Kernel.--([:__struct__, :id])
-
-    [:id] ++ attrs
   end
 
   @doc """
@@ -64,14 +63,13 @@ defmodule EslNews.Store.Story do
   Decode a :mnesia record tuple into an EslNews.Store.Story struct
 
   ## Examples
-      iex> EslNews.Store.Story.decode({EslNews.Store.Story, 1, "Author", "Title", "story"})
-      %EslNews.Store.Story{id: 1, type: "story", title: "Title", by: "Author"}
+      iex> EslNews.Store.Story.decode({EslNews.Store.Story, 1, "Author", 0, 0, 0, "Title", "story", nil})
+      %EslNews.Store.Story{id: 1, by: "Author", descendants: 0, score: 0, time: 0, type: "story", title: "Title", url: nil}
   """
-  @spec decode({EslNews.Store.Story, non_neg_integer, String.t(), String.t(), String.t()}) ::
-          EslNews.Store.Story.t()
-  def decode(record) when Record.is_record(record) do
+  @spec decode(EslNews.Store.Story.r()) :: EslNews.Store.Story.t()
+  def decode(record) when Record.is_record(record) and tuple_size(record) == @record_tuple_size do
     attrs =
-      as_schema()
+      schema_attrs()
       |> Enum.with_index(1)
       |> Enum.map(fn {key, idx} ->
         {key, elem(record, idx)}
@@ -80,6 +78,9 @@ defmodule EslNews.Store.Story do
     struct!(__MODULE__, attrs)
   end
 
+  @doc """
+  Delete an EslNews.Store.Story stored in :mnesia
+  """
   @spec delete(EslNews.Store.Story.t()) :: :ok
   def delete(%__MODULE__{id: id}) do
     {:atomic, result} =
@@ -95,12 +96,11 @@ defmodule EslNews.Store.Story do
 
   ## Examples
       iex> EslNews.Store.Story.encode(%EslNews.Store.Story{id: 1, type: "story", title: "Title", by: "Author"})
-      {EslNews.Store.Story, 1, "Author", "Title", "story"}
+      {EslNews.Store.Story, 1, "Author", nil, nil, nil, "Title", "story", nil}
   """
-  @spec encode(EslNews.Store.Story.t()) ::
-          {EslNews.Store.Story, non_neg_integer, String.t(), String.t(), String.t()}
+  @spec encode(EslNews.Store.Story.t()) :: EslNews.Store.Story.r()
   def encode(%__MODULE__{} = story) when is_struct(story) do
-    as_schema()
+    schema_attrs()
     |> Enum.reduce({__MODULE__}, fn key, acc ->
       acc
       |> Tuple.append(Map.get(story, key))
@@ -129,5 +129,28 @@ defmodule EslNews.Store.Story do
       end)
 
     reason
+  end
+
+  @doc """
+  Attributes list for :mnesia table schema definition.
+  :id must always be the first attribute
+  """
+  @spec schema_attrs :: [atom, ...]
+  def schema_attrs() do
+    @struct_keys
+  end
+
+  @doc """
+  Zero-based list of attribute positions to be indexed for :mnesia table schema definition.
+  :id is indexed by default, will not be included
+  """
+  @spec schema_indices([atom, ...]) :: [non_neg_integer]
+  def schema_indices(keys) do
+    keys
+    |> Enum.map(fn key ->
+      Enum.find_index(@struct_keys, fn s -> s == key end)
+    end)
+    |> Enum.sort()
+    |> List.delete(0)
   end
 end

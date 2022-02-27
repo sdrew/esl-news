@@ -5,8 +5,8 @@ defmodule EslNews.Store.StoryTest do
   doctest EslNews.Store.Story
 
   setup_all do
-    keys = ["14894769", "18264710"]
-    records = TestHelper.load_fixtures("items", keys)
+    keys = [14_894_769, 18_264_710]
+    records = TestHelper.load_fixtures(:items, keys)
 
     first_key =
       keys
@@ -50,16 +50,6 @@ defmodule EslNews.Store.StoryTest do
     end
   end
 
-  describe "#as_schema()" do
-    test "returns attributes list with :id as the first element" do
-      attrs = EslNews.Store.Story.as_schema()
-      keys = struct(EslNews.Store.Story, []) |> Map.keys() |> List.delete(:__struct__)
-
-      assert List.first(attrs) == :id
-      assert Enum.count(attrs) == Enum.count(keys)
-    end
-  end
-
   describe "#create()" do
     test "persists an EslNews.Store.Story struct", ctx do
       story = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
@@ -80,7 +70,9 @@ defmodule EslNews.Store.StoryTest do
       record = ctx.records[ctx.first_key]
       story = struct(EslNews.Store.Story, record)
 
-      tuple = {EslNews.Store.Story, record.id, record.by, record.title, record.type}
+      tuple =
+        {EslNews.Store.Story, record.id, record.by, record.descendants, record.score, record.time,
+         record.title, record.type, record.url}
 
       assert EslNews.Store.Story.decode(tuple) == story
     end
@@ -110,7 +102,8 @@ defmodule EslNews.Store.StoryTest do
       story = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
 
       assert EslNews.Store.Story.encode(story) ==
-               {EslNews.Store.Story, story.id, story.by, story.title, story.type}
+               {EslNews.Store.Story, story.id, story.by, story.descendants, story.score,
+                story.time, story.title, story.type, story.url}
     end
   end
 
@@ -125,6 +118,36 @@ defmodule EslNews.Store.StoryTest do
 
     test "returns :not_found for an unknown EslNews.Store.Story" do
       assert EslNews.Store.Story.find(1234) == {:not_found, nil}
+    end
+  end
+
+  describe "#schema_attrs()" do
+    test "returns attributes list with :id as the first element" do
+      attrs = EslNews.Store.Story.schema_attrs()
+      keys = struct(EslNews.Store.Story, []) |> Map.keys() |> List.delete(:__struct__)
+
+      assert List.first(attrs) == :id
+      assert Enum.count(attrs) == Enum.count(keys)
+    end
+  end
+
+  describe "#schema_indices()" do
+    test "returns index positions list" do
+      indices = EslNews.Store.Story.schema_indices([:by, :descendants])
+
+      assert indices == [1, 2]
+    end
+
+    test "will not include :id index in list" do
+      indices = EslNews.Store.Story.schema_indices([:by, :id])
+
+      assert indices == [1]
+    end
+
+    test "will handle empty attrs list" do
+      indices = EslNews.Store.Story.schema_indices([])
+
+      assert indices == []
     end
   end
 end

@@ -13,12 +13,8 @@ defmodule EslNews.Store.Schema do
     {:ok, state}
   end
 
-  defp setup_store() do
-    :ok = ensure_schema_exists()
-    :ok = :mnesia.start()
-    :ok = ensure_table_exists()
-    :ok = ensure_table_index()
-
+  @spec wait_for_tables :: :ok
+  def wait_for_tables() do
     :mnesia.wait_for_tables([EslNews.Store.Story], 2000)
     |> case do
       {:timeout, tables_missing} ->
@@ -27,6 +23,14 @@ defmodule EslNews.Store.Schema do
       :ok ->
         :ok
     end
+  end
+
+  defp setup_store() do
+    :ok = ensure_schema_exists()
+    :ok = :mnesia.start()
+    :ok = ensure_table_exists()
+
+    wait_for_tables()
   end
 
   defp ensure_schema_exists() do
@@ -44,19 +48,9 @@ defmodule EslNews.Store.Schema do
     :mnesia.create_table(
       EslNews.Store.Story,
       ram_copies: [node()],
-      attributes: EslNews.Store.Story.as_schema()
+      attributes: EslNews.Store.Story.schema_attrs(),
+      index: EslNews.Store.Story.schema_indices([:type])
     )
-    |> case do
-      {:atomic, :ok} ->
-        :ok
-
-      {:aborted, {:already_exists, EslNews.Store.Story}} ->
-        :ok
-    end
-  end
-
-  defp ensure_table_index() do
-    :mnesia.add_table_index(EslNews.Store.Story, :type)
     |> case do
       {:atomic, :ok} ->
         :ok
