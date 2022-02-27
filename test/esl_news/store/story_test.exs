@@ -33,87 +33,87 @@ defmodule EslNews.Store.StoryTest do
     end
 
     test "returns a list with a single existing EslNews.Store.Story", ctx do
-      story = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
-      EslNews.Store.Story.create(story)
+      subject = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
+      EslNews.Store.Story.create(subject)
 
-      assert EslNews.Store.Story.all() == [story]
+      assert EslNews.Store.Story.all() == [subject]
     end
 
     test "returns a list with a multiple existing EslNews.Store.Story", ctx do
-      story_1 = struct(EslNews.Store.Story, ctx.records[Enum.at(ctx.keys, 0)])
-      EslNews.Store.Story.create(story_1)
+      subject_1 = struct(EslNews.Store.Story, ctx.records[Enum.at(ctx.keys, 0)])
+      EslNews.Store.Story.create(subject_1)
 
-      story_2 = struct(EslNews.Store.Story, ctx.records[Enum.at(ctx.keys, 1)])
-      EslNews.Store.Story.create(story_2)
+      subject_2 = struct(EslNews.Store.Story, ctx.records[Enum.at(ctx.keys, 1)])
+      EslNews.Store.Story.create(subject_2)
 
-      assert EslNews.Store.Story.all() == [story_1, story_2]
+      assert EslNews.Store.Story.all() == [subject_1, subject_2]
     end
   end
 
   describe "#create()" do
     test "persists an EslNews.Store.Story struct", ctx do
-      story = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
+      subject = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
 
-      assert EslNews.Store.Story.create(story) == :ok
+      assert EslNews.Store.Story.create(subject) == :ok
     end
 
     test "does not persist a duplicate EslNews.Store.Story struct", ctx do
-      story = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
+      subject = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
 
-      assert EslNews.Store.Story.create(story) == :ok
-      assert EslNews.Store.Story.create(story) == :record_exists
+      assert EslNews.Store.Story.create(subject) == :ok
+      assert EslNews.Store.Story.create(subject) == :record_exists
     end
   end
 
   describe "#decode()" do
     test "converts a :mnesia record tuple into an EslNews.Store.Story struct", ctx do
       record = ctx.records[ctx.first_key]
-      story = struct(EslNews.Store.Story, record)
+      subject = struct(EslNews.Store.Story, record)
 
       tuple =
         {EslNews.Store.Story, record.id, record.by, record.descendants, record.score, record.time,
          record.title, record.type, record.url}
 
-      assert EslNews.Store.Story.decode(tuple) == story
+      assert EslNews.Store.Story.decode(tuple) == subject
     end
   end
 
   describe "#delete()" do
     test "removes an existing :mnesia record", ctx do
       record = ctx.records[ctx.first_key]
-      story = struct(EslNews.Store.Story, record)
+      subject = struct(EslNews.Store.Story, record)
 
-      assert EslNews.Store.Story.create(story) == :ok
-      assert EslNews.Store.Story.all() == [story]
-      assert EslNews.Store.Story.delete(story) == :ok
+      assert EslNews.Store.Story.create(subject) == :ok
+      assert EslNews.Store.Story.all() == [subject]
+      assert EslNews.Store.Story.delete(subject) == :ok
       assert EslNews.Store.Story.all() == []
     end
 
     test "no error when record does not exist", ctx do
       record = ctx.records[ctx.first_key]
-      story = struct(EslNews.Store.Story, record)
+      subject = struct(EslNews.Store.Story, record)
 
-      assert EslNews.Store.Story.delete(story) == :ok
+      assert EslNews.Store.Story.delete(subject) == :ok
     end
   end
 
   describe "#encode()" do
     test "converts an EslNews.Store.Story struct into a :mnesia record tuple", ctx do
-      story = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
+      subject = struct(EslNews.Store.Story, ctx.records[ctx.first_key])
 
-      assert EslNews.Store.Story.encode(story) ==
-               {EslNews.Store.Story, story.id, story.by, story.descendants, story.score,
-                story.time, story.title, story.type, story.url}
+      assert EslNews.Store.Story.encode(subject) ==
+               {EslNews.Store.Story, subject.id, subject.by, subject.descendants, subject.score,
+                subject.time, subject.title, subject.type, subject.url}
     end
   end
 
   describe "#find()" do
     test "returns existing EslNews.Store.Story", ctx do
       record = ctx.records[ctx.first_key]
-      story = struct(EslNews.Store.Story, record)
+      subject = struct(EslNews.Store.Story, record)
 
-      assert EslNews.Store.Story.create(story) == :ok
-      assert EslNews.Store.Story.find(story.id) == {:ok, story}
+      assert EslNews.Store.Story.create(subject) == :ok
+      assert EslNews.Store.Story.find(subject.id) == {:ok, subject}
     end
 
     test "returns :not_found for an unknown EslNews.Store.Story" do

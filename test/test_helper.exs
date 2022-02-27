@@ -21,7 +21,7 @@ defmodule EslNews.Test.TestHelper do
   @doc """
   Load JSON fixture files into a map indexed by filename
   """
-  @spec load_fixtures(:items | :lists | :users, [String.t() | non_neg_integer, ...]) :: map
+  @spec load_fixtures(:items | :lists | :users, [atom | String.t() | non_neg_integer, ...]) :: map
   def load_fixtures(scope, keys) do
     keys
     |> Enum.map(fn key ->
@@ -31,8 +31,11 @@ defmodule EslNews.Test.TestHelper do
           %{} = fxt ->
             fxt |> atomize_keys()
 
-          [] = fxt ->
+          [_ | _] = fxt ->
             fxt
+
+          [] ->
+            []
         end
 
       {key, fixture}

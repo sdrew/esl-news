@@ -1,23 +1,17 @@
-defmodule EslNews.Store.Story do
+defmodule EslNews.Store.List do
   require Record
 
   @required_keys [:id]
-  @optional_keys [:by, :descendants, :score, :time, :title, :type, :url]
+  @optional_keys [:items, :time]
   @struct_keys @required_keys ++ @optional_keys
   @record_tuple_size Enum.count(@struct_keys) + 1
 
   @type r ::
-          {__MODULE__, non_neg_integer, String.t() | nil, non_neg_integer, integer,
-           non_neg_integer | nil, String.t() | nil, String.t() | nil, String.t() | nil}
+          {__MODULE__, atom, [non_neg_integer, ...], non_neg_integer | nil}
   @type t :: %__MODULE__{
-          id: non_neg_integer,
-          by: String.t(),
-          descendants: non_neg_integer,
-          score: integer,
-          time: non_neg_integer,
-          title: String.t(),
-          type: String.t(),
-          url: String.t() | nil
+          id: atom,
+          items: [non_neg_integer, ...],
+          time: non_neg_integer | nil
         }
 
   @enforce_keys @required_keys
@@ -25,7 +19,7 @@ defmodule EslNews.Store.Story do
   defstruct @struct_keys
 
   @doc """
-  List all existing EslNews.Store.Story records
+  List all existing EslNews.Store.List records
   """
   @spec all :: list
   def all() do
@@ -41,10 +35,10 @@ defmodule EslNews.Store.Story do
   end
 
   @doc """
-  Persist an EslNews.Store.Story in :mnesia
+  Persist an EslNews.Store.List in :mnesia
   """
-  @spec create(EslNews.Store.Story.t()) :: :ok | :record_exists | atom
-  def create(%__MODULE__{id: id} = state) when is_integer(id) do
+  @spec create(EslNews.Store.List.t()) :: :ok | :record_exists | atom
+  def create(%__MODULE__{id: id} = state) when is_atom(id) do
     {:atomic, reason} =
       :mnesia.transaction(fn ->
         case :mnesia.wread({__MODULE__, id}) do
@@ -60,13 +54,13 @@ defmodule EslNews.Store.Story do
   end
 
   @doc """
-  Decode a :mnesia record tuple into an EslNews.Store.Story struct
+  Decode a :mnesia record tuple into an EslNews.Store.List struct
 
   ## Examples
-      iex> EslNews.Store.Story.decode({EslNews.Store.Story, 1, "Author", 0, 0, 0, "Title", "story", nil})
-      %EslNews.Store.Story{id: 1, by: "Author", descendants: 0, score: 0, time: 0, type: "story", title: "Title", url: nil}
+      iex> EslNews.Store.List.decode({EslNews.Store.List, :topstories, [4,2,3,1], 54321})
+      %EslNews.Store.List{id: :topstories, items: [4,2,3,1], time: 54321}
   """
-  @spec decode(EslNews.Store.Story.r()) :: EslNews.Store.Story.t()
+  @spec decode(EslNews.Store.List.r()) :: EslNews.Store.List.t()
   def decode(record) when Record.is_record(record) and tuple_size(record) == @record_tuple_size do
     attrs =
       schema_attrs()
@@ -79,9 +73,9 @@ defmodule EslNews.Store.Story do
   end
 
   @doc """
-  Delete an EslNews.Store.Story stored in :mnesia
+  Delete an EslNews.Store.List stored in :mnesia
   """
-  @spec delete(EslNews.Store.Story.t()) :: :ok
+  @spec delete(EslNews.Store.List.t()) :: :ok
   def delete(%__MODULE__{id: id}) do
     {:atomic, result} =
       :mnesia.transaction(fn ->
@@ -92,26 +86,26 @@ defmodule EslNews.Store.Story do
   end
 
   @doc """
-  Encode an EslNews.Store.Story struct into a :mnesia record tuple
+  Encode an EslNews.Store.List struct into a :mnesia record tuple
 
   ## Examples
-      iex> EslNews.Store.Story.encode(%EslNews.Store.Story{id: 1, type: "story", title: "Title", by: "Author"})
-      {EslNews.Store.Story, 1, "Author", nil, nil, nil, "Title", "story", nil}
+      iex> EslNews.Store.List.encode(%EslNews.Store.List{id: :topstories, items: [4,2,3,1], time: 54321})
+      {EslNews.Store.List, :topstories, [4,2,3,1], 54321}
   """
-  @spec encode(EslNews.Store.Story.t()) :: EslNews.Store.Story.r()
-  def encode(%__MODULE__{} = story) when is_struct(story) do
+  @spec encode(EslNews.Store.List.t()) :: EslNews.Store.List.r()
+  def encode(%__MODULE__{} = list) when is_struct(list) do
     schema_attrs()
     |> Enum.reduce({__MODULE__}, fn key, acc ->
       acc
-      |> Tuple.append(Map.get(story, key))
+      |> Tuple.append(Map.get(list, key))
     end)
   end
 
   @doc """
-  Load an EslNews.Store.Story stored in :mnesia or return :not_found
+  Load an EslNews.Store.List stored in :mnesia or return :not_found
   """
-  @spec find(non_neg_integer) :: {:ok, EslNews.Store.Story.t()} | {:not_found, nil}
-  def find(id) when is_integer(id) and id > 0 do
+  @spec find(atom) :: {:ok, EslNews.Store.List.t()} | {:not_found, nil}
+  def find(id) when is_atom(id) do
     {:atomic, reason} =
       :mnesia.transaction(fn ->
         case list = :mnesia.read({__MODULE__, id}) do
