@@ -126,6 +126,21 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
+  Available story list names
+  """
+  @spec lists() :: [atom, ...]
+  def lists() do
+    [
+      :askstories,
+      :beststories,
+      :jobstories,
+      :newstories,
+      :showstories,
+      :topstories
+    ]
+  end
+
+  @doc """
   Attributes list for :mnesia table schema definition.
   :id must always be the first attribute
   """

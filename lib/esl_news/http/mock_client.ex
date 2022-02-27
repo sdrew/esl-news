@@ -6,7 +6,7 @@ defmodule EslNews.Http.MockClient do
   """
   @spec lists() :: [atom, ...]
   def lists() do
-    EslNews.Http.Client.lists()
+    EslNews.Store.List.lists()
   end
 
   @doc """
