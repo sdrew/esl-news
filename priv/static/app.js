@@ -14,11 +14,27 @@ function renderStories(stories) {
   container.innerHTML = '';
 
   stories.forEach(story => {
-    let messageElem = document.createElement('div');
-    messageElem.className = 'container mx-auto';
-    messageElem.textContent = story.title;
+    let messageHeading = document.createElement('h4');
+    messageHeading.className = 'text-base font-bold underline';
 
-    container.append(messageElem);
+    let messageTitle = document.createElement('a');
+    messageTitle.href = `https://news.ycombinator.com/item?id=${story.id}`;
+    messageTitle.textContent = `[#${story.id}] ${story.title}`;
+
+    messageHeading.append(messageTitle);
+
+    let messageByline = document.createElement('div');
+    messageByline.className = 'text-sm font-normal';
+    messageByline.textContent = `${story.score} points by ${story.by} | ${story.descendants} comments`;
+
+    let messageCont = document.createElement('div');
+    messageCont.className = 'container mx-auto py-2';
+
+    messageCont.append(messageHeading);
+    messageCont.append(messageByline);
+    messageCont.append(document.createElement('hr'));
+
+    container.append(messageCont);
   });
 }
 
