@@ -45,7 +45,7 @@ defmodule EslNews.Handlers.StoriesTest do
 
     test "responds with 200 and a list of story IDs", ctx do
       EslNews.Store.List.create(
-        struct(EslNews.Store.List, %{id: ctx.list, items: ctx.keys, time: 54321})
+        struct(EslNews.Store.List, %{id: ctx.list, items: ctx.keys, time: 54_321})
       )
 
       ctx.records
@@ -83,7 +83,7 @@ defmodule EslNews.Handlers.StoriesTest do
         struct(EslNews.Store.List, %{
           id: :topstories,
           items: [subject_2.id, subject_1.id],
-          time: 54321
+          time: 54_321
         })
       )
 

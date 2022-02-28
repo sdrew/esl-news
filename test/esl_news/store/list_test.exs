@@ -10,7 +10,7 @@ defmodule EslNews.Store.ListTest do
     records =
       TestHelper.load_fixtures(:lists, keys)
       |> Enum.map(fn {key, list} ->
-        {key, %{id: key, items: list, time: 54321}}
+        {key, %{id: key, items: list, time: 54_321}}
       end)
       |> Enum.into(%{})
 

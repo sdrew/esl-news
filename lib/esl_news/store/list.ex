@@ -1,4 +1,8 @@
 defmodule EslNews.Store.List do
+  @moduledoc """
+  `EslNews.Store.List` provides a mnesia schema and struct to store List objects,
+  as well as helper methods to interact with the storage table.
+  """
   require Record
 
   @required_keys [:id]

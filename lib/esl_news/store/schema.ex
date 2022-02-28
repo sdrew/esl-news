@@ -1,4 +1,8 @@
 defmodule EslNews.Store.Schema do
+  @moduledoc """
+  `EslNews.Store.Schema` sets up the :mnesia application and creates tables
+  for Store.List and Store.Story.
+  """
   use GenServer
 
   @spec start_link(GenServer.options()) :: GenServer.on_start()

@@ -5,7 +5,7 @@ defmodule EslNews.Logger do
   `EslNews.Logger` provides logging helpers for `EslNews.Handlers`
   """
 
-  @should_log Application.fetch_env!(:esl_news, :env) != :test
+  @should_log Application.compile_env!(:esl_news, :env) != :test
 
   @doc """
   Log a `:cowboy_req` with a timestamp, method, path and optionally the query params

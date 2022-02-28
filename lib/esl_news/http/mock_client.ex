@@ -1,4 +1,9 @@
 defmodule EslNews.Http.MockClient do
+  @moduledoc """
+  `EslNews.Http.MockClient` mimicks `EslNews.Http.Client`but loads its
+  JSON objects from disk, instead of the network.
+  """
+
   @fixtures_dir Path.join([File.cwd!(), "test", "fixtures"])
 
   @doc """

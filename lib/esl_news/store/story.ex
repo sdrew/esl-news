@@ -1,4 +1,8 @@
 defmodule EslNews.Store.Story do
+  @moduledoc """
+  `EslNews.Store.Story` provides a mnesia schema and struct to store Story objects,
+  as well as helper methods to interact with the storage table.
+  """
   require Record
 
   @required_keys [:id]
