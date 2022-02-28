@@ -50,8 +50,8 @@ defmodule EslNews.Handler do
       """
       @impl true
       @spec init(:cowboy_req.req(), any) :: {:cowboy_rest, :cowboy_req.req(), any}
-      def init(request, options) do
-        {:cowboy_rest, request, options}
+      def init(request, state) do
+        {:cowboy_rest, request, state}
       end
 
       @doc """

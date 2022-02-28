@@ -25,6 +25,7 @@ defmodule EslNews.MixProject do
       {:cowboy, "~> 2.9"},
       {:credo, "~> 1.6", only: [:dev, :test]},
       {:hackney, "~> 1.18"},
+      {:socket, "~> 0.3.13", only: [:test]},
       {:tesla, "~> 1.4"}
     ]
   end
