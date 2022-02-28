@@ -25,9 +25,9 @@ defmodule EslNews.Store.Story do
   defstruct @struct_keys
 
   @doc """
-  List all existing EslNews.Store.Story records
+  All existing EslNews.Store.Story records
   """
-  @spec all :: list
+  @spec all() :: list
   def all() do
     {:atomic, list} =
       :mnesia.transaction(fn ->
@@ -38,6 +38,38 @@ defmodule EslNews.Store.Story do
 
     list
     |> Enum.map(fn x -> __MODULE__.decode(x) end)
+  end
+
+  @doc """
+  All existing EslNews.Store.Story records ordered EslNews.Store.List or list of IDs
+  """
+  @spec all(atom | [non_neg_integer, ...]) :: list
+  def all(:all), do: all()
+
+  def all(list_id) when is_atom(list_id) do
+    case EslNews.Store.List.find(list_id) do
+      {:ok, find} ->
+        find.items
+        |> __MODULE__.all()
+
+      {:not_found, _} ->
+        []
+    end
+  end
+
+  def all(ids) when is_list(ids) do
+    ids
+    |> Enum.map(fn item ->
+      __MODULE__.find(item)
+      |> case do
+        {:ok, story} ->
+          story
+
+        {:not_found, _} ->
+          nil
+      end
+    end)
+    |> Enum.reject(fn x -> x == nil end)
   end
 
   @doc """

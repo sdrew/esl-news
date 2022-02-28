@@ -17,8 +17,10 @@ defmodule EslNews.Handlers.Stories do
     {page, per} = Handler.pagination_params(request)
     offset = (page - 1) * per
 
+    list = :topstories
+
     stories =
-      Story.all()
+      Story.all(list)
       |> Enum.slice(offset, per)
 
     {Jason.encode!(stories), request, state}

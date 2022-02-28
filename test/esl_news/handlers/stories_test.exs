@@ -7,19 +7,22 @@ defmodule EslNews.Handlers.StoriesTest do
   @base_url "http://localhost:8081/api/"
 
   setup_all do
-    keys = [10_385_385, 14_894_769, 15_798_849, 18_264_710, 19_707_399]
+    list = :topstories
+    keys = TestHelper.load_fixture(:lists, list)
     records = TestHelper.load_fixtures(:items, keys)
 
     first_key =
       keys
       |> List.first()
 
-    {:ok, %{first_key: first_key, keys: keys, records: records}}
+    {:ok, %{first_key: first_key, keys: keys, list: list, records: records}}
   end
 
   setup ctx do
     # Remove existing inserted records before every test
     :mnesia.transaction(fn ->
+      :mnesia.delete({EslNews.Store.List, ctx.list})
+
       ctx.records
       |> Enum.each(fn {_key, record} ->
         :mnesia.delete({EslNews.Store.Story, record.id})
@@ -41,18 +44,23 @@ defmodule EslNews.Handlers.StoriesTest do
     end
 
     test "responds with 200 and a list of story IDs", ctx do
-      subjects =
-        ctx.records
-        |> Enum.map(fn {_key, record} ->
-          subject = struct(EslNews.Store.Story, record)
-          EslNews.Store.Story.create(subject)
-          subject
-        end)
+      EslNews.Store.List.create(
+        struct(EslNews.Store.List, %{id: ctx.list, items: ctx.keys, time: 54321})
+      )
+
+      ctx.records
+      |> Enum.map(fn {_key, record} ->
+        subject = struct(EslNews.Store.Story, record)
+        EslNews.Store.Story.create(subject)
+        subject
+      end)
 
       {:ok, resp} = Tesla.get("#{@base_url}stories")
 
       assert resp.status == 200
-      assert resp.body == Jason.encode!(subjects)
+
+      resp_ids = Jason.decode!(resp.body) |> Enum.map(fn x -> Map.get(x, "id") end)
+      assert resp_ids == ctx.keys
 
       assert resp.headers |> List.keyfind("content-type", 0) ==
                {"content-type", "application/json"}
@@ -71,10 +79,18 @@ defmodule EslNews.Handlers.StoriesTest do
       subject_2 = struct(EslNews.Store.Story, ctx.records[Enum.at(ctx.keys, 1)])
       EslNews.Store.Story.create(subject_2)
 
+      EslNews.Store.List.create(
+        struct(EslNews.Store.List, %{
+          id: :topstories,
+          items: [subject_2.id, subject_1.id],
+          time: 54321
+        })
+      )
+
       req = %{method: "GET", path: "/api/stories", bindings: %{}, qs: ""}
       resp = EslNews.Handlers.Stories.response(req, [])
 
-      assert elem(resp, 0) == Jason.encode!([subject_1, subject_2])
+      assert elem(resp, 0) == Jason.encode!([subject_2, subject_1])
       assert elem(resp, 1) == req
       assert elem(resp, 2) == []
     end
