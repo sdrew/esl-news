@@ -6,7 +6,7 @@ defmodule EslNews.Handlers.Ws do
   use EslNews.Websocket
   alias EslNews.Store.Story
 
-  @ws_tick_ms 2_000
+  @ws_tick_ms 20_000
 
   @doc """
   Deliver JSON encoded list of stories to the websocket client every time the timer expires
