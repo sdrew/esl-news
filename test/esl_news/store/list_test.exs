@@ -5,7 +5,7 @@ defmodule EslNews.Store.ListTest do
   doctest EslNews.Store.List
 
   setup_all do
-    keys = [:topstories, :beststories]
+    keys = [:beststories, :topstories]
 
     records =
       TestHelper.load_fixtures(:lists, keys)

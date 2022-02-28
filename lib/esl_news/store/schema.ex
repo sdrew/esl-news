@@ -48,6 +48,7 @@ defmodule EslNews.Store.Schema do
   defp ensure_table_exists(module, indices) do
     :mnesia.create_table(
       module,
+      type: :ordered_set,
       ram_copies: [node()],
       attributes: module.schema_attrs(),
       index: module.schema_indices(indices)
