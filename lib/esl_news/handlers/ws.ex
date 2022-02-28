@@ -7,6 +7,7 @@ defmodule EslNews.Handlers.Ws do
   alias EslNews.Store.Story
 
   @ws_tick_ms 20_000
+  @ws_empty_tick_ms 5_000
 
   @doc """
   Deliver JSON encoded list of stories to the websocket client every time the timer expires
@@ -21,9 +22,29 @@ defmodule EslNews.Handlers.Ws do
     stories =
       Story.all(list)
       |> Enum.slice(0, 50)
-      |> Jason.encode!()
 
-    :erlang.start_timer(@ws_tick_ms, self(), :tick)
-    {[active: true, text: stories], state}
+    tick_ms =
+      stories
+      |> Enum.count()
+      |> case do
+        0 ->
+          # Faster updates when stories is empty (eg. on server start)
+          @ws_empty_tick_ms
+
+        _ ->
+          @ws_tick_ms
+      end
+
+    :erlang.start_timer(tick_ms, self(), :tick)
+
+    {
+      [
+        active: true,
+        text:
+          stories
+          |> Jason.encode!()
+      ],
+      state
+    }
   end
 end
