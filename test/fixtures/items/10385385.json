@@ -1,0 +1,14 @@
+{
+  "by": "motiejus",
+  "descendants": 36,
+  "id": 10385385,
+  "kids": [
+    10386336, 10388488, 10386026, 10385721, 10385778, 10386547, 10388090, 10385974, 10386594, 10387871, 10386619,
+    10385964, 10385841
+  ],
+  "score": 140,
+  "time": 1444807467,
+  "title": "Usefulness of mnesia, the Erlang built-in database",
+  "type": "story",
+  "url": "http://erlang.org/pipermail/erlang-questions/2015-October/086429.html"
+}
