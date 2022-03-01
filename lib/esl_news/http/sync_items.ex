@@ -10,22 +10,31 @@ defmodule EslNews.Http.SyncItems do
 
   @client Application.compile_env(:esl_news, :http_client, EslNews.Http.MockClient)
   @sync_tick_ms 1 * 1000
+  @sync_empty_tick_ms 10 * 1000
 
   @doc """
   Process a {list, item_id} tuple. Load existing Store.Story struct or create an empty stub.
   Ignore if item has been processed, otherwise fetch from HTTP endpoint and update in :mnesia.
   If the HTTP request fails, re-enqueue the {list, item_id} tuple with SyncLists.push_item() to
-  process it again.
+  process it again. Worker timer backs off after 3 nil items were obtained, from `@sync_tic_ms` to
+  `@sync_empty_tick_ms`
   """
-  @spec sync_item({atom, non_neg_integer} | nil) :: :ok
-  def sync_item(nil) do
-    Logger.info("SyncItems: no item")
+  @spec sync_item({atom, non_neg_integer} | nil, non_neg_integer) :: :ok
+  def sync_item(nil, attempts) do
+    attempts = attempts + 1
+    Logger.info("SyncItems: no item (#{attempts})")
 
-    Process.send_after(self(), :sync_tick, @sync_tick_ms)
+    tick_ms =
+      if attempts < 3,
+        do: @sync_tick_ms,
+        else: @sync_empty_tick_ms
+
+    GenServer.cast(self(), {:set_attempts, attempts})
+    Process.send_after(self(), :sync_tick, tick_ms)
     :ok
   end
 
-  def sync_item({list, item_id}) when is_atom(list) and is_integer(item_id) do
+  def sync_item({list, item_id}, _attempts) when is_atom(list) and is_integer(item_id) do
     Logger.info("SyncItems: #{list} #{item_id}")
 
     story =
@@ -59,6 +68,7 @@ defmodule EslNews.Http.SyncItems do
 
     SyncLists.sweep_list(list)
 
+    GenServer.cast(self(), {:set_attempts, 0})
     Process.send_after(self(), :sync_tick, @sync_tick_ms)
     :ok
   end
@@ -71,7 +81,15 @@ defmodule EslNews.Http.SyncItems do
   def start_link(opts \\ []) do
     EslNews.Store.Schema.wait_for_tables()
 
-    GenServer.start_link(__MODULE__, %{}, opts)
+    state = %{
+      attempts: 0,
+      name:
+        opts
+        |> List.keyfind!(:name, 0)
+        |> elem(1)
+    }
+
+    GenServer.start_link(__MODULE__, state, opts)
   end
 
   @doc """
@@ -80,10 +98,19 @@ defmodule EslNews.Http.SyncItems do
   @impl true
   @spec init(any) :: {:ok, any}
   def init(state) do
-    Logger.info("SyncItems worker with #{@client} every #{@sync_tick_ms / 1000}s")
+    Logger.info("#{state.name} with #{@client} every #{@sync_tick_ms / 1000}s")
 
     Process.send(self(), :sync_tick, [])
     {:ok, state}
+  end
+
+  @doc """
+  GenServer.cast() callback.
+  - set_attempts: Update the number of attempts worker has made to obtain a valid {list, item_id} tuple.
+  """
+  @impl true
+  def handle_cast({:set_attempts, attempts}, state) do
+    {:noreply, %{state | attempts: attempts}}
   end
 
   @doc """
@@ -92,7 +119,7 @@ defmodule EslNews.Http.SyncItems do
   @impl true
   def handle_info(:sync_tick, state) do
     SyncLists.pull_item()
-    |> sync_item()
+    |> sync_item(state.attempts)
 
     {:noreply, state}
   end
