@@ -41,7 +41,7 @@ defmodule EslNews.Http.Client do
 
   defp fetch_item(path) do
     case get("#{path}.json") do
-      {:ok, resp} ->
+      {:ok, %Tesla.Env{status: 200} = resp} ->
         resp.body
 
       _ ->
@@ -51,7 +51,7 @@ defmodule EslNews.Http.Client do
 
   defp fetch_list(list) do
     case get("#{list}.json") do
-      {:ok, resp} ->
+      {:ok, %Tesla.Env{status: 200} = resp} ->
         resp.body
 
       _ ->
