@@ -36,5 +36,8 @@ defmodule EslNews do
     - Multiple workers will be spawned by the supervisor depending on `MIX_ENV`
       - `:dev` 4 workers
       - `:prod` 10 workers
+
+  ### Supervision Tree
+  ![Supervsion Tree for :dev environment](./supervisor_tree.png)
   """
 end
