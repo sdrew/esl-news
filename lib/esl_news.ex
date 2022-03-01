@@ -1,7 +1,9 @@
 defmodule EslNews do
   @moduledoc """
   `EslNews` works as an aggeregator for Hacker News stories, fetching data from the HN API for further
-  analysis or consumption. API documentation is available at https://github.com/HackerNews/API
+  analysis or consumption.
+  - Documentation for `EslNews` is available at https://sdrew.github.io/esl-news/
+  - Documentation for the HN API is available at https://github.com/HackerNews/API
 
   ### Basic Features
   - Fetch the 50 top stories every 5 minutes.
