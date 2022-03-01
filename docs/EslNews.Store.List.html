@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.28.2">
+    <meta name="project" content="ESL News v0.1.0">
+
+    <title>EslNews.Store.List — ESL News v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-69d615db1d0fc8b2ce48.css" />
+
+    <script src="dist/sidebar_items-5e55d38b9b.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-073abeeda7b7e6d5d7e9.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+
+<section class="sidebar">
+  <button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+    <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+  </button>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="https://github.com/sdrew/esl-news" class="sidebar-projectName" translate="no">
+ESL News
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v0.1.0
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span translate="no">EslNews.Store.List</span> 
+  <small class="app-vsn" translate="no">(ESL News v0.1.0)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p><a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> provides a <code class="inline">:mnesia</code> schema and struct to store <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> objects,
+as well as helper methods to interact with the storage table.</p>
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
+
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:r/0" translate="no">r()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p><a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> record tuple type</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:t/0" translate="no">t()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p><a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> struct type</p></div>
+
+      </div>
+
+  </div>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#all/0" translate="no">all()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>List all existing <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> records</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#create/1" translate="no">create(state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Persist an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> in <code class="inline">:mnesia</code></p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#decode/1" translate="no">decode(record)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Decode a <code class="inline">:mnesia</code> record tuple into an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> struct</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#delete/1" translate="no">delete(list)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Delete an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> stored in <code class="inline">:mnesia</code></p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#encode/1" translate="no">encode(list)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Encode an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> struct into a <code class="inline">:mnesia</code> record tuple</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#find/1" translate="no">find(id)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Load an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> stored in <code class="inline">:mnesia</code> or return <code class="inline">:not_found</code></p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#lists/0" translate="no">lists()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Available story list names</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#schema_attrs/0" translate="no">schema_attrs()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Attributes list for <code class="inline">:mnesia</code> table schema definition.
+<code class="inline">:id</code> must always be the first attribute</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#schema_indices/1" translate="no">schema_indices(keys)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Zero-based list of attribute positions to be indexed for <code class="inline">:mnesia</code> table schema definition.
+<code class="inline">:id</code> is indexed by default, will not be included</p></div>
+
+      </div>
+
+  </div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:r/0">
+
+  <div class="detail-header">
+    <a href="#t:r/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">r()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L16" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">r() ::
+  {EslNews.Store.List, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), ...],
+   <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil}</pre>
+
+      </div>
+
+<p><a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> record tuple type</p>
+  </section>
+</section>
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">t()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L21" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">t() :: %EslNews.Store.List{
+  id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(),
+  items: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), ...],
+  time: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil
+}</pre>
+
+      </div>
+
+<p><a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> struct type</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="all/0">
+
+  <div class="detail-header">
+    <a href="#all/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">all()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L35" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">all() :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">list</a>()</pre>
+
+      </div>
+
+<p>List all existing <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> records</p>
+  </section>
+</section>
+<section class="detail" id="create/1">
+
+  <div class="detail-header">
+    <a href="#create/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">create(state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L52" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">create(<a href="#t:t/0">t</a>() | {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), ...]}) ::
+  :ok | :record_exists | <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()</pre>
+
+      </div>
+
+<p>Persist an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> in <code class="inline">:mnesia</code></p>
+  </section>
+</section>
+<section class="detail" id="decode/1">
+
+  <div class="detail-header">
+    <a href="#decode/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">decode(record)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L80" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">decode(<a href="#t:r/0">r</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Decode a <code class="inline">:mnesia</code> record tuple into an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> struct</p><h2 id="decode/1-examples" class="section-heading">
+  <a href="#decode/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">examples</p>
+  </a>
+  Examples
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">EslNews.Store.List</span><span class="o">.</span><span class="n">decode</span><span class="p" data-group-id="9316884584-1">(</span><span class="p" data-group-id="9316884584-2">{</span><span class="nc">EslNews.Store.List</span><span class="p">,</span><span class="w"> </span><span class="ss">:topstories</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9316884584-3">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p" data-group-id="9316884584-3">]</span><span class="p">,</span><span class="w"> </span><span class="mi">54321</span><span class="p" data-group-id="9316884584-2">}</span><span class="p" data-group-id="9316884584-1">)</span><span class="w">
+</span><span class="p" data-group-id="9316884584-4">%</span><span class="nc" data-group-id="9316884584-4">EslNews.Store.List</span><span class="p" data-group-id="9316884584-4">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:topstories</span><span class="p">,</span><span class="w"> </span><span class="ss">items</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9316884584-5">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p" data-group-id="9316884584-5">]</span><span class="p">,</span><span class="w"> </span><span class="ss">time</span><span class="p">:</span><span class="w"> </span><span class="mi">54321</span><span class="p" data-group-id="9316884584-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="delete/1">
+
+  <div class="detail-header">
+    <a href="#delete/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(list)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L95" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">delete(<a href="#t:t/0">t</a>()) :: :ok</pre>
+
+      </div>
+
+<p>Delete an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> stored in <code class="inline">:mnesia</code></p>
+  </section>
+</section>
+<section class="detail" id="encode/1">
+
+  <div class="detail-header">
+    <a href="#encode/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">encode(list)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L112" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">encode(<a href="#t:t/0">t</a>()) :: <a href="#t:r/0">r</a>()</pre>
+
+      </div>
+
+<p>Encode an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> struct into a <code class="inline">:mnesia</code> record tuple</p><h2 id="encode/1-examples" class="section-heading">
+  <a href="#encode/1-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">examples</p>
+  </a>
+  Examples
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">EslNews.Store.List</span><span class="o">.</span><span class="n">encode</span><span class="p" data-group-id="9076633633-1">(</span><span class="p" data-group-id="9076633633-2">%</span><span class="nc" data-group-id="9076633633-2">EslNews.Store.List</span><span class="p" data-group-id="9076633633-2">{</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:topstories</span><span class="p">,</span><span class="w"> </span><span class="ss">items</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9076633633-3">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p" data-group-id="9076633633-3">]</span><span class="p">,</span><span class="w"> </span><span class="ss">time</span><span class="p">:</span><span class="w"> </span><span class="mi">54321</span><span class="p" data-group-id="9076633633-2">}</span><span class="p" data-group-id="9076633633-1">)</span><span class="w">
+</span><span class="p" data-group-id="9076633633-4">{</span><span class="nc">EslNews.Store.List</span><span class="p">,</span><span class="w"> </span><span class="ss">:topstories</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9076633633-5">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p" data-group-id="9076633633-5">]</span><span class="p">,</span><span class="w"> </span><span class="mi">54321</span><span class="p" data-group-id="9076633633-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="find/1">
+
+  <div class="detail-header">
+    <a href="#find/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">find(id)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L124" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">find(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()) :: {:ok, <a href="#t:t/0">t</a>()} | {:not_found, nil}</pre>
+
+      </div>
+
+<p>Load an <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> stored in <code class="inline">:mnesia</code> or return <code class="inline">:not_found</code></p>
+  </section>
+</section>
+<section class="detail" id="lists/0">
+
+  <div class="detail-header">
+    <a href="#lists/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">lists()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L148" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">lists() :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), ...]</pre>
+
+      </div>
+
+<p>Available story list names</p>
+  </section>
+</section>
+<section class="detail" id="schema_attrs/0">
+
+  <div class="detail-header">
+    <a href="#schema_attrs/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">schema_attrs()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L164" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">schema_attrs() :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), ...]</pre>
+
+      </div>
+
+<p>Attributes list for <code class="inline">:mnesia</code> table schema definition.
+<code class="inline">:id</code> must always be the first attribute</p>
+  </section>
+</section>
+<section class="detail" id="schema_indices/1">
+
+  <div class="detail-header">
+    <a href="#schema_indices/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">schema_indices(keys)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/store/list.ex#L173" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">schema_indices([<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), ...]) :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()]</pre>
+
+      </div>
+
+<p>Zero-based list of attribute positions to be indexed for <code class="inline">:mnesia</code> table schema definition.
+<code class="inline">:id</code> is indexed by default, will not be included</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.2) for the
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

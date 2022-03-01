@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.28.2">
+    <meta name="project" content="ESL News v0.1.0">
+
+    <title>EslNews.Handlers.Ws — ESL News v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-69d615db1d0fc8b2ce48.css" />
+
+    <script src="dist/sidebar_items-5e55d38b9b.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-073abeeda7b7e6d5d7e9.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+
+<section class="sidebar">
+  <button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+    <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+  </button>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="https://github.com/sdrew/esl-news" class="sidebar-projectName" translate="no">
+ESL News
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v0.1.0
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/handlers/ws.ex#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span translate="no">EslNews.Handlers.Ws</span> 
+  <small class="app-vsn" translate="no">(ESL News v0.1.0)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p><a href="EslNews.Handlers.Ws.html#content"><code class="inline">EslNews.Handlers.Ws</code></a> provides a JSON response for the latest available Stories through websockets.
+Implements <code class="inline">@behaviour</code> for <a href="EslNews.Websocket.html"><code class="inline">EslNews.Websocket</code></a></p>
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
+
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:call_result/0" translate="no">call_result()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p><code class="inline">:cowboy_websocket.call_result()</code> type isn't exported by <code class="inline">:cowboy_websocket</code></p></div>
+
+      </div>
+
+  </div>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#init/2" translate="no">init(request, state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Upgrade a basic <code class="inline">:cowboy_handler</code> middleware to the <code class="inline">:cowboy_websocket</code> middleware</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#terminate/3" translate="no">terminate(call, request, state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Logs when a connection is terminated.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#websocket_handle/2" translate="no">websocket_handle(call, state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Receives pings/data from the connection. Ignores and continues.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#websocket_info/2" translate="no">websocket_info(call, state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Deliver JSON encoded list of stories to the websocket client every time the timer expires</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#websocket_init/1" translate="no">websocket_init(state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Log a successful connection and dispatch the initial call to <a href="#websocket_info/2"><code class="inline">websocket_info/2</code></a> after 10ms</p></div>
+
+      </div>
+
+  </div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:call_result/0">
+
+  <div class="detail-header">
+    <a href="#t:call_result/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">call_result()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/handlers/ws.ex#L6" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">call_result() ::
+  {<a href="https://hexdocs.pm/cowboy/2.9.0/cowboy_websocket.html#t:commands/0">:cowboy_websocket.commands</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
+  | {<a href="https://hexdocs.pm/cowboy/2.9.0/cowboy_websocket.html#t:commands/0">:cowboy_websocket.commands</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), :hibernate}</pre>
+
+      </div>
+
+<p><code class="inline">:cowboy_websocket.call_result()</code> type isn't exported by <code class="inline">:cowboy_websocket</code></p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="init/2">
+
+  <div class="detail-header">
+    <a href="#init/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">init(request, state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/handlers/ws.ex#L6" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">init(<a href="https://hexdocs.pm/cowboy/2.9.0/cowboy_req.html#t:req/0">:cowboy_req.req</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) :: {:cowboy_websocket, <a href="https://hexdocs.pm/cowboy/2.9.0/cowboy_req.html#t:req/0">:cowboy_req.req</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Upgrade a basic <code class="inline">:cowboy_handler</code> middleware to the <code class="inline">:cowboy_websocket</code> middleware</p>
+  </section>
+</section>
+<section class="detail" id="terminate/3">
+
+  <div class="detail-header">
+    <a href="#terminate/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">terminate(call, request, state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/handlers/ws.ex#L6" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">terminate(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), <a href="https://hexdocs.pm/cowboy/2.9.0/cowboy_req.html#t:req/0">:cowboy_req.req</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) :: :ok</pre>
+
+      </div>
+
+<p>Logs when a connection is terminated.</p>
+  </section>
+</section>
+<section class="detail" id="websocket_handle/2">
+
+  <div class="detail-header">
+    <a href="#websocket_handle/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">websocket_handle(call, state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/handlers/ws.ex#L6" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">websocket_handle(
+  :ping | :pong | {:text | :binary | :ping | :pong, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()
+) :: <a href="#t:call_result/0">call_result</a>()</pre>
+
+      </div>
+
+<p>Receives pings/data from the connection. Ignores and continues.</p>
+  </section>
+</section>
+<section class="detail" id="websocket_info/2">
+
+  <div class="detail-header">
+    <a href="#websocket_info/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">websocket_info(call, state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/handlers/ws.ex#L17" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">websocket_info({:timeout, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), :connected | :tick}, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) :: <a href="#t:call_result/0">call_result</a>()</pre>
+
+      </div>
+
+<p>Deliver JSON encoded list of stories to the websocket client every time the timer expires</p>
+  </section>
+</section>
+<section class="detail" id="websocket_init/1">
+
+  <div class="detail-header">
+    <a href="#websocket_init/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">websocket_init(state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/handlers/ws.ex#L6" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">websocket_init(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) :: <a href="#t:call_result/0">call_result</a>()</pre>
+
+      </div>
+
+<p>Log a successful connection and dispatch the initial call to <a href="#websocket_info/2"><code class="inline">websocket_info/2</code></a> after 10ms</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.2) for the
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

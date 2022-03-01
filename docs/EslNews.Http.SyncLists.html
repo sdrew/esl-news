@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.28.2">
+    <meta name="project" content="ESL News v0.1.0">
+
+    <title>EslNews.Http.SyncLists — ESL News v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-69d615db1d0fc8b2ce48.css" />
+
+    <script src="dist/sidebar_items-5e55d38b9b.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-073abeeda7b7e6d5d7e9.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+
+<section class="sidebar">
+  <button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+    <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+  </button>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="https://github.com/sdrew/esl-news" class="sidebar-projectName" translate="no">
+ESL News
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v0.1.0
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span translate="no">EslNews.Http.SyncLists</span> 
+  <small class="app-vsn" translate="no">(ESL News v0.1.0)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p><a href="EslNews.Http.SyncLists.html#content"><code class="inline">EslNews.Http.SyncLists</code></a></p>
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#child_spec/1" translate="no">child_spec(init_arg)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Returns a specification to start this module under a supervisor.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#handle_call/3" translate="no">handle_call(msg, from, state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p><a href="https://hexdocs.pm/elixir/GenServer.html#call/2"><code class="inline">GenServer.call/2</code></a> callback.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#handle_cast/2" translate="no">handle_cast(msg, state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p><a href="https://hexdocs.pm/elixir/GenServer.html#cast/2"><code class="inline">GenServer.cast/2</code></a> callback.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#handle_info/2" translate="no">handle_info(msg, state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>On every <code class="inline">:sync_tick</code> timeout, enqueue all lists to be updated and set a new timer.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#init/1" translate="no">init(state)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Initialize by dispatching the initial call to <code class="inline">:sync_tick</code></p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#pull_item/0" translate="no">pull_item()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Dequeue an <code class="inline">{list, item_id}</code> tuple for processing. <code class="inline">nil</code> if no tuples remain.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#push_item/2" translate="no">push_item(list, item)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Enqueue a <code class="inline">{list, item_id}</code> tuple for processing.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#start_link/1" translate="no">start_link(opts \\ [])</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#sweep_list/1" translate="no">sweep_list(list)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Verify that all items in an upcoming list have been fetched
+and convert it to the current items list.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#sync_list/1" translate="no">sync_list(list)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Enqueue a list name to fetch from the API as an upcoming items list.</p></div>
+
+      </div>
+
+  </div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="child_spec/1">
+
+  <div class="detail-header">
+    <a href="#child_spec/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">child_spec(init_arg)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L5" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a specification to start this module under a supervisor.</p><p>See <a href="https://hexdocs.pm/elixir/Supervisor.html"><code class="inline">Supervisor</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="handle_call/3">
+
+  <div class="detail-header">
+    <a href="#handle_call/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">handle_call(msg, from, state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L76" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p><a href="https://hexdocs.pm/elixir/GenServer.html#call/2"><code class="inline">GenServer.call/2</code></a> callback.</p><ul><li><code class="inline">:pull_item</code> Obtain next <code class="inline">{list, item_id}</code> tuple and remove it from state</li></ul>
+  </section>
+</section>
+<section class="detail" id="handle_cast/2">
+
+  <div class="detail-header">
+    <a href="#handle_cast/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">handle_cast(msg, state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L99" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p><a href="https://hexdocs.pm/elixir/GenServer.html#cast/2"><code class="inline">GenServer.cast/2</code></a> callback.</p><ul><li><code class="inline">:push_item</code> Insert a <code class="inline">{list, item_id}</code> tuple into state.</li><li><code class="inline">:sync_list</code> Fetch list item IDs from HTTP endpoint and keep only the first <code class="inline">@sync_items_count</code> entries.
+  Save the entries to a temporary upcoming <a href="EslNews.Store.List.html"><code class="inline">EslNews.Store.List</code></a>, and then create empty stub
+  <a href="EslNews.Store.Story.html"><code class="inline">EslNews.Store.Story</code></a> for each ID before pushing the ID into the processing queue.</li><li><code class="inline">:sweep_list</code> Fetch list item IDs from an upcoming list and hydrate them into <a href="EslNews.Store.Story.html"><code class="inline">EslNews.Store.Story</code></a> structs.
+  Ensure no stub structs remain by checking their <code class="inline">type</code> attribute and once all are set, save the upcoming
+  list as the current list. Finally, delete the upcoming list to prepare for the next sync cycle.</li></ul>
+  </section>
+</section>
+<section class="detail" id="handle_info/2">
+
+  <div class="detail-header">
+    <a href="#handle_info/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">handle_info(msg, state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L150" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>On every <code class="inline">:sync_tick</code> timeout, enqueue all lists to be updated and set a new timer.</p>
+  </section>
+</section>
+<section class="detail" id="init/1">
+
+  <div class="detail-header">
+    <a href="#init/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">init(state)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L64" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">init(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Initialize by dispatching the initial call to <code class="inline">:sync_tick</code></p>
+  </section>
+</section>
+<section class="detail" id="pull_item/0">
+
+  <div class="detail-header">
+    <a href="#pull_item/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">pull_item()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L19" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">pull_item() :: {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()} | nil</pre>
+
+      </div>
+
+<p>Dequeue an <code class="inline">{list, item_id}</code> tuple for processing. <code class="inline">nil</code> if no tuples remain.</p>
+  </section>
+</section>
+<section class="detail" id="push_item/2">
+
+  <div class="detail-header">
+    <a href="#push_item/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">push_item(list, item)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L27" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">push_item(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: :ok</pre>
+
+      </div>
+
+<p>Enqueue a <code class="inline">{list, item_id}</code> tuple for processing.</p>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+
+    <span id="start_link/0"></span>
+
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">start_link(opts \\ [])</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L53" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">start_link(<a href="https://hexdocs.pm/elixir/GenServer.html#t:options/0">GenServer.options</a>()) :: <a href="https://hexdocs.pm/elixir/GenServer.html#t:on_start/0">GenServer.on_start</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="sweep_list/1">
+
+  <div class="detail-header">
+    <a href="#sweep_list/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sweep_list(list)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L44" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">sweep_list(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()) :: :ok</pre>
+
+      </div>
+
+<p>Verify that all items in an upcoming list have been fetched
+and convert it to the current items list.</p>
+  </section>
+</section>
+<section class="detail" id="sync_list/1">
+
+  <div class="detail-header">
+    <a href="#sync_list/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sync_list(list)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/sync_lists.ex#L35" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">sync_list(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()) :: :ok</pre>
+
+      </div>
+
+<p>Enqueue a list name to fetch from the API as an upcoming items list.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.2) for the
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

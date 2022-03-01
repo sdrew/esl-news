@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.28.2">
+    <meta name="project" content="ESL News v0.1.0">
+
+    <title>EslNews.Http.Client — ESL News v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-69d615db1d0fc8b2ce48.css" />
+
+    <script src="dist/sidebar_items-5e55d38b9b.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-073abeeda7b7e6d5d7e9.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+
+<section class="sidebar">
+  <button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+    <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+  </button>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="https://github.com/sdrew/esl-news" class="sidebar-projectName" translate="no">
+ESL News
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v0.1.0
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span translate="no">EslNews.Http.Client</span> 
+  <small class="app-vsn" translate="no">(ESL News v0.1.0)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p><a href="EslNews.Http.Client.html#content"><code class="inline">EslNews.Http.Client</code></a> fetches JSON objects from an HTTP API.</p>
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
+
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:option/0" translate="no">option()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Options that may be passed to a request function. See <a href="#request/2"><code class="inline">request/2</code></a> for detailed descriptions.</p></div>
+
+      </div>
+
+  </div>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get/3" translate="no">get(client, url, opts)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Perform a GET request.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get!/3" translate="no">get!(client, url, opts)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Perform a GET request.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#list/1" translate="no">list(list)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>List of story IDs in order of popularity</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#lists/0" translate="no">lists()</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Available story list names</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#request/2" translate="no">request(client \\ %Tesla.Client{}, options)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Perform a request.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#request!/2" translate="no">request!(client \\ %Tesla.Client{}, options)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Perform request and raise in case of error.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#story/1" translate="no">story(id)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Raw JSON story struct</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#user/1" translate="no">user(username)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Raw JSON user struct</p></div>
+
+      </div>
+
+  </div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:option/0">
+
+  <div class="detail-header">
+    <a href="#t:option/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">option()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L5" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">option() ::
+  {:method, <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:method/0">Tesla.Env.method</a>()}
+  | {:url, <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:url/0">Tesla.Env.url</a>()}
+  | {:query, <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:query/0">Tesla.Env.query</a>()}
+  | {:headers, <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:headers/0">Tesla.Env.headers</a>()}
+  | {:body, <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:body/0">Tesla.Env.body</a>()}
+  | {:opts, <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:opts/0">Tesla.Env.opts</a>()}</pre>
+
+      </div>
+
+<p>Options that may be passed to a request function. See <a href="#request/2"><code class="inline">request/2</code></a> for detailed descriptions.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="get/3">
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(client, url, opts)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L5" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get(<a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:client/0">Tesla.Env.client</a>(), <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:url/0">Tesla.Env.url</a>(), [<a href="#t:option/0">option</a>()]) :: <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:result/0">Tesla.Env.result</a>()</pre>
+
+      </div>
+
+<p>Perform a GET request.</p><p>See <a href="#request/1"><code class="inline">request/1</code></a> or <a href="#request/2"><code class="inline">request/2</code></a> for options definition.</p><pre><code class="makeup elixir" translate="no"><span class="n">get</span><span class="p" data-group-id="3388991944-1">(</span><span class="s">&quot;/users&quot;</span><span class="p" data-group-id="3388991944-1">)</span><span class="w">
+</span><span class="n">get</span><span class="p" data-group-id="3388991944-2">(</span><span class="s">&quot;/users&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">query</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3388991944-3">[</span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin&quot;</span><span class="p" data-group-id="3388991944-3">]</span><span class="p" data-group-id="3388991944-2">)</span><span class="w">
+</span><span class="n">get</span><span class="p" data-group-id="3388991944-4">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p" data-group-id="3388991944-4">)</span><span class="w">
+</span><span class="n">get</span><span class="p" data-group-id="3388991944-5">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">query</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3388991944-6">[</span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin&quot;</span><span class="p" data-group-id="3388991944-6">]</span><span class="p" data-group-id="3388991944-5">)</span><span class="w">
+</span><span class="n">get</span><span class="p" data-group-id="3388991944-7">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">body</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3388991944-8">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Jon&quot;</span><span class="p" data-group-id="3388991944-8">}</span><span class="p" data-group-id="3388991944-7">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get!/3">
+
+  <div class="detail-header">
+    <a href="#get!/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get!(client, url, opts)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L5" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get!(<a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:client/0">Tesla.Env.client</a>(), <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:url/0">Tesla.Env.url</a>(), [<a href="#t:option/0">option</a>()]) ::
+  <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:t/0">Tesla.Env.t</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
+
+      </div>
+
+<p>Perform a GET request.</p><p>See <a href="#request!/1"><code class="inline">request!/1</code></a> or <a href="#request!/2"><code class="inline">request!/2</code></a> for options definition.</p><pre><code class="makeup elixir" translate="no"><span class="n">get!</span><span class="p" data-group-id="5437807152-1">(</span><span class="s">&quot;/users&quot;</span><span class="p" data-group-id="5437807152-1">)</span><span class="w">
+</span><span class="n">get!</span><span class="p" data-group-id="5437807152-2">(</span><span class="s">&quot;/users&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">query</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5437807152-3">[</span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin&quot;</span><span class="p" data-group-id="5437807152-3">]</span><span class="p" data-group-id="5437807152-2">)</span><span class="w">
+</span><span class="n">get!</span><span class="p" data-group-id="5437807152-4">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p" data-group-id="5437807152-4">)</span><span class="w">
+</span><span class="n">get!</span><span class="p" data-group-id="5437807152-5">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">query</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5437807152-6">[</span><span class="ss">scope</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin&quot;</span><span class="p" data-group-id="5437807152-6">]</span><span class="p" data-group-id="5437807152-5">)</span><span class="w">
+</span><span class="n">get!</span><span class="p" data-group-id="5437807152-7">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">body</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5437807152-8">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Jon&quot;</span><span class="p" data-group-id="5437807152-8">}</span><span class="p" data-group-id="5437807152-7">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="list/1">
+
+  <div class="detail-header">
+    <a href="#list/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">list(list)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L22" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">list(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()) :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), ...]</pre>
+
+      </div>
+
+<p>List of story IDs in order of popularity</p>
+  </section>
+</section>
+<section class="detail" id="lists/0">
+
+  <div class="detail-header">
+    <a href="#lists/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">lists()</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L14" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">lists() :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), ...]</pre>
+
+      </div>
+
+<p>Available story list names</p>
+  </section>
+</section>
+<section class="detail" id="request/2">
+
+    <span id="request/1"></span>
+
+  <div class="detail-header">
+    <a href="#request/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">request(client \\ %Tesla.Client{}, options)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L5" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">request(<a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:client/0">Tesla.Env.client</a>(), [<a href="#t:option/0">option</a>()]) :: <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:result/0">Tesla.Env.result</a>()</pre>
+
+      </div>
+
+<p>Perform a request.</p><h2 id="request/2-options" class="section-heading">
+  <a href="#request/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">options</p>
+  </a>
+  Options
+</h2>
+<ul><li><code class="inline">:method</code> - the request method, one of [<code class="inline">:head</code>, <code class="inline">:get</code>, <code class="inline">:delete</code>, <code class="inline">:trace</code>, <code class="inline">:options</code>, <code class="inline">:post</code>, <code class="inline">:put</code>, <code class="inline">:patch</code>]</li><li><code class="inline">:url</code> - either full url e.g. &quot;<a href="http://example.com/some/path%22">http://example.com/some/path&quot;</a> or just &quot;/some/path&quot; if using <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Middleware.BaseUrl.html"><code class="inline">Tesla.Middleware.BaseUrl</code></a></li><li><code class="inline">:query</code> - a keyword list of query params, e.g. <code class="inline">[page: 1, per_page: 100]</code></li><li><code class="inline">:headers</code> - a keyworld list of headers, e.g. <code class="inline">[{&quot;content-type&quot;, &quot;text/plain&quot;}]</code></li><li><code class="inline">:body</code> - depends on used middleware:<ul><li>by default it can be a binary</li><li>if using e.g. JSON encoding middleware it can be a nested map</li><li>if adapter supports it it can be a Stream with any of the above</li></ul></li><li><code class="inline">:opts</code> - custom, per-request middleware or adapter options</li></ul><h2 id="request/2-examples" class="section-heading">
+  <a href="#request/2-examples" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">examples</p>
+  </a>
+  Examples
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="nc">ExampleApi</span><span class="o">.</span><span class="n">request</span><span class="p" data-group-id="3569093945-1">(</span><span class="ss">method</span><span class="p">:</span><span class="w"> </span><span class="ss">:get</span><span class="p">,</span><span class="w"> </span><span class="ss">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users/path&quot;</span><span class="p" data-group-id="3569093945-1">)</span><span class="w">
+
+</span><span class="c1"># use shortcut methods</span><span class="w">
+</span><span class="nc">ExampleApi</span><span class="o">.</span><span class="n">get</span><span class="p" data-group-id="3569093945-2">(</span><span class="s">&quot;/users/1&quot;</span><span class="p" data-group-id="3569093945-2">)</span><span class="w">
+</span><span class="nc">ExampleApi</span><span class="o">.</span><span class="n">post</span><span class="p" data-group-id="3569093945-3">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3569093945-4">%{</span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Jon&quot;</span><span class="p" data-group-id="3569093945-4">}</span><span class="p" data-group-id="3569093945-3">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="request!/2">
+
+    <span id="request!/1"></span>
+
+  <div class="detail-header">
+    <a href="#request!/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">request!(client \\ %Tesla.Client{}, options)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L5" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">request!(<a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:client/0">Tesla.Env.client</a>(), [<a href="#t:option/0">option</a>()]) :: <a href="https://hexdocs.pm/tesla/1.4.4/Tesla.Env.html#t:t/0">Tesla.Env.t</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">no_return</a>()</pre>
+
+      </div>
+
+<p>Perform request and raise in case of error.</p><p>This is similar to <a href="#request/2"><code class="inline">request/2</code></a> behaviour from Tesla 0.x</p><p>See <a href="#request/2"><code class="inline">request/2</code></a> for list of available options.</p>
+  </section>
+</section>
+<section class="detail" id="story/1">
+
+  <div class="detail-header">
+    <a href="#story/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">story(id)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L30" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">story(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
+
+      </div>
+
+<p>Raw JSON story struct</p>
+  </section>
+</section>
+<section class="detail" id="user/1">
+
+  <div class="detail-header">
+    <a href="#user/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">user(username)</h1>
+
+      <a href="https://github.com/sdrew/esl-news/blob/main/lib/esl_news/http/client.ex#L38" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">user(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
+
+      </div>
+
+<p>Raw JSON user struct</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.2) for the
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

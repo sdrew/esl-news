@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.28.2">
+    <meta name="project" content="ESL News v0.1.0">
+
+    <title>API Reference — ESL News v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-69d615db1d0fc8b2ce48.css" />
+
+    <script src="dist/sidebar_items-5e55d38b9b.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-073abeeda7b7e6d5d7e9.js"></script>
+
+
+  </head>
+  <body data-type="extras">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+
+<section class="sidebar">
+  <button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+    <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+  </button>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="https://github.com/sdrew/esl-news" class="sidebar-projectName" translate="no">
+ESL News
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v0.1.0
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+  <span>API Reference <small class="app-vsn">ESL News v0.1.0</small></span>
+</h1>
+
+
+  <section class="details-list">
+    <h2 id="modules" class="section-heading">
+  <a href="#modules" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">modules</p>
+  </a>
+  Modules
+</h2>
+
+    <div class="summary">
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.html" translate="no">EslNews</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.html#content"><code class="inline">EslNews</code></a> works as an aggeregator for Hacker News stories, fetching data from the HN API for further
+analysis or consumption.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Application.html" translate="no">EslNews.Application</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Application.html#content"><code class="inline">EslNews.Application</code></a> sets up a <code class="inline">:cowboy</code> HTTP webserver, the main Supervisor
+for the <a href="EslNews.Http.SyncLists.html"><code class="inline">EslNews.Http.SyncLists</code></a> and <a href="EslNews.Http.SyncItems.html"><code class="inline">EslNews.Http.SyncItems</code></a> workers, and for
+<a href="EslNews.Store.Schema.html"><code class="inline">EslNews.Store.Schema</code></a> which handles the <code class="inline">:mnesia</code> storage.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Handler.html" translate="no">EslNews.Handler</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Handler.html#content"><code class="inline">EslNews.Handler</code></a> provides a standard base implementing the <code class="inline">:cowboy_rest</code> behaviour
+and URI param extraction for <code class="inline">EslNews.Handlers</code></p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Handlers.Stories.html" translate="no">EslNews.Handlers.Stories</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Handlers.Stories.html#content"><code class="inline">EslNews.Handlers.Stories</code></a> provides a JSON response for the latest available Stories.
+Implements <code class="inline">@behaviour</code> for <a href="EslNews.Handler.html"><code class="inline">EslNews.Handler</code></a></p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Handlers.Story.html" translate="no">EslNews.Handlers.Story</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Handlers.Story.html#content"><code class="inline">EslNews.Handlers.Story</code></a> provides a JSON response for a single Story resource.
+Implements <code class="inline">@behaviour</code> for <a href="EslNews.Handler.html"><code class="inline">EslNews.Handler</code></a></p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Handlers.Ws.html" translate="no">EslNews.Handlers.Ws</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Handlers.Ws.html#content"><code class="inline">EslNews.Handlers.Ws</code></a> provides a JSON response for the latest available Stories through websockets.
+Implements <code class="inline">@behaviour</code> for <a href="EslNews.Websocket.html"><code class="inline">EslNews.Websocket</code></a></p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Http.Client.html" translate="no">EslNews.Http.Client</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Http.Client.html#content"><code class="inline">EslNews.Http.Client</code></a> fetches JSON objects from an HTTP API.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Http.MockClient.html" translate="no">EslNews.Http.MockClient</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Http.MockClient.html#content"><code class="inline">EslNews.Http.MockClient</code></a> mimicks <a href="EslNews.Http.Client.html"><code class="inline">EslNews.Http.Client</code></a>but loads its
+JSON objects from disk, instead of the network.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Http.SyncItems.html" translate="no">EslNews.Http.SyncItems</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Http.SyncItems.html#content"><code class="inline">EslNews.Http.SyncItems</code></a></p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Http.SyncLists.html" translate="no">EslNews.Http.SyncLists</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Http.SyncLists.html#content"><code class="inline">EslNews.Http.SyncLists</code></a></p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Logger.html" translate="no">EslNews.Logger</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Logger.html#content"><code class="inline">EslNews.Logger</code></a> provides logging helpers for <code class="inline">EslNews.Handlers</code></p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Router.html" translate="no">EslNews.Router</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Router.html#content"><code class="inline">EslNews.Router</code></a> defines the routes and handlers required to generate the <code class="inline">:cowboy_router.dispatch_rules()</code>
+required by the <code class="inline">:cowboy</code> webserver.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Store.List.html" translate="no">EslNews.Store.List</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> provides a <code class="inline">:mnesia</code> schema and struct to store <a href="EslNews.Store.List.html#content"><code class="inline">EslNews.Store.List</code></a> objects,
+as well as helper methods to interact with the storage table.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Store.Schema.html" translate="no">EslNews.Store.Schema</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Store.Schema.html#content"><code class="inline">EslNews.Store.Schema</code></a> sets up the <code class="inline">:mnesia</code> application and creates tables
+for <a href="EslNews.Store.List.html"><code class="inline">EslNews.Store.List</code></a> and <a href="EslNews.Store.Story.html"><code class="inline">EslNews.Store.Story</code></a>.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Store.Story.html" translate="no">EslNews.Store.Story</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Store.Story.html#content"><code class="inline">EslNews.Store.Story</code></a> provides a <code class="inline">mnesia</code> schema and struct to store <a href="EslNews.Store.Story.html#content"><code class="inline">EslNews.Store.Story</code></a> objects,
+as well as helper methods to interact with the storage table.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="EslNews.Websocket.html" translate="no">EslNews.Websocket</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p><a href="EslNews.Websocket.html#content"><code class="inline">EslNews.Websocket</code></a> provides a standard base implementing the <code class="inline">:cowboy_websocket</code> behaviour
+and URI param extraction for <code class="inline">EslNews.Handlers</code></p></div>
+
+</div>
+
+    </div>
+  </section>
+
+
+<div class="bottom-actions">
+  <div class="bottom-actions-item">
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="readme.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+EslNews
+        </span>
+      </a>
+
+  </div>
+</div>
+
+      <footer class="footer">
+
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.2) for the
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>
