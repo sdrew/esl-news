@@ -1,7 +1,7 @@
 defmodule EslNews.Store.Schema do
   @moduledoc """
-  `EslNews.Store.Schema` sets up the :mnesia application and creates tables
-  for Store.List and Store.Story.
+  `EslNews.Store.Schema` sets up the `:mnesia` application and creates tables
+  for `EslNews.Store.List` and `EslNews.Store.Story`.
   """
   use GenServer
 
@@ -10,6 +10,13 @@ defmodule EslNews.Store.Schema do
     GenServer.start_link(__MODULE__, %{}, opts)
   end
 
+  @doc """
+  Initialize `:mnesia`.
+  - Create schema on the current node.
+  - Start `:mnesia`
+  - Create tables for `EslNews.Store.List` and `EslNews.Store.Story`
+  - Wait for table setup to complete before continuing
+  """
   @spec init(any) :: {:ok, any}
   def init(state) do
     setup_store()
@@ -17,6 +24,9 @@ defmodule EslNews.Store.Schema do
     {:ok, state}
   end
 
+  @doc """
+  Force execution to pause while table setup completes.
+  """
   @spec wait_for_tables :: :ok
   def wait_for_tables() do
     :mnesia.wait_for_tables([EslNews.Store.Story], 2000)

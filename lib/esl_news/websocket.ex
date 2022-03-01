@@ -10,9 +10,9 @@ defmodule EslNews.Websocket do
   @type call_result() ::
           {:cowboy_websocket.commands(), any} | {:cowboy_websocket.commands(), any, :hibernate}
 
-  @doc """
-  `:cowboy_websocket` behaviour callbacks
-  """
+  # =========
+  # `:cowboy_websocket` behaviour callbacks
+  # =========
   @callback init(:cowboy_req.req(), any) :: {:cowboy_websocket, :cowboy_req.req(), any}
   @callback websocket_init(any) :: call_result()
   @callback websocket_handle(:ping | :pong | {:text | :binary | :ping | :pong, binary()}, any) ::
@@ -39,7 +39,7 @@ defmodule EslNews.Websocket do
               | {:cowboy_websocket.commands(), any, :hibernate}
 
       @doc """
-      Upgrade a basic :cowboy_handler middleware to the :cowboy_websocket middleware
+      Upgrade a basic `:cowboy_handler` middleware to the `:cowboy_websocket` middleware
       """
       @impl true
       @spec init(:cowboy_req.req(), any) :: {:cowboy_websocket, :cowboy_req.req(), any}
@@ -58,7 +58,7 @@ defmodule EslNews.Websocket do
       end
 
       @doc """
-      Log a successful connection and dispatch the initial call to websocket_info() after 10ms
+      Log a successful connection and dispatch the initial call to `websocket_info/2` after 10ms
       """
       @impl true
       @spec websocket_init(any) :: call_result()
@@ -85,7 +85,7 @@ defmodule EslNews.Websocket do
       Logs when a connection is terminated.
       """
       @impl true
-      @callback terminate(any, :cowboy_req.req(), any) :: :ok
+      @spec terminate(any, :cowboy_req.req(), any) :: :ok
       def terminate(_call, _request, _state) do
         Logger.info("WS Terminate")
 

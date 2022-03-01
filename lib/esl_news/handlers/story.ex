@@ -1,7 +1,7 @@
 defmodule EslNews.Handlers.Story do
   @moduledoc """
-  `EslNews.Handlers.Story` provides a JSON response for a single Story resource
-  Implements @behaviour for `EslNews.Handler`
+  `EslNews.Handlers.Story` provides a JSON response for a single Story resource.
+  Implements `@behaviour` for `EslNews.Handler`
   """
   use EslNews.Handler
   alias EslNews.Store.Story

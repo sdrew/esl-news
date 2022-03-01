@@ -1,14 +1,18 @@
 defmodule EslNews.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
-  @moduledoc false
+  @moduledoc """
+  `EslNews.Application` sets up a `:cowboy` HTTP webserver, the main Supervisor
+  for the `EslNews.Http.SyncLists` and `EslNews.Http.SyncItems` workers, and for
+  `EslNews.Store.Schema` which handles the `:mnesia` storage.
+  """
 
   use Application
 
   @sync_workers Application.compile_env(:esl_news, :sync_workers, 4)
 
   @doc """
-  Supervisor children specs.
+  Supervisor children specs for `EslNews.Store.Schema`, `EslNews.Http.SyncItems`, and `EslNews.Http.SyncLists`.
   - Always run Store.Schema
   - Avoid running other children in :test environment.
   """
@@ -32,6 +36,9 @@ defmodule EslNews.Application do
     ] ++ sync_workers
   end
 
+  @doc """
+  Initialize `:cowboy` webserver using `EslNews.Router` and start the application `Supervisor`
+  """
   @impl true
   def start(_type, _args) do
     env = Application.fetch_env!(:esl_news, :env)

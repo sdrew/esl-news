@@ -10,6 +10,7 @@ defmodule EslNews.Logger do
   @doc """
   Log a simple value with timestamp
   """
+  @spec info(any) :: :ok | nil
   def info(info) do
     if @should_log, do: Logger.info("#{info}")
   end
@@ -17,7 +18,7 @@ defmodule EslNews.Logger do
   @doc """
   Log a `:cowboy_req` with a timestamp, method, path and optionally the query params
   """
-  @spec request(:cowboy_req.req(), any) :: :ok
+  @spec request(:cowboy_req.req(), any) :: :ok | nil
   def request(request, _state) do
     method = :cowboy_req.method(request)
     path = request_path(:cowboy_req.path(request), :cowboy_req.qs(request))
@@ -28,7 +29,7 @@ defmodule EslNews.Logger do
   @doc """
   Log the Story in a request state with a timestamp, the Story ID and title
   """
-  @spec resource([Keyword.t()]) :: :ok
+  @spec resource([Keyword.t()]) :: :ok | nil
   def resource(state) do
     {:id, id} = List.keyfind!(state, :id, 0)
     {:story, story} = List.keyfind!(state, :story, 0)

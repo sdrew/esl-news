@@ -1,7 +1,7 @@
 defmodule EslNews.Handlers.Stories do
   @moduledoc """
-  `EslNews.Handlers.Stories` provides a JSON response for the latest available Stories
-  Implements @behaviour for `EslNews.Handler`
+  `EslNews.Handlers.Stories` provides a JSON response for the latest available Stories.
+  Implements `@behaviour` for `EslNews.Handler`
   """
   use EslNews.Handler
   alias EslNews.Store.Story

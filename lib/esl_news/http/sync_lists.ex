@@ -13,7 +13,7 @@ defmodule EslNews.Http.SyncLists do
   @sync_tick_ms 5 * 60 * 1000
 
   @doc """
-  Dequeue an {list, item_id} tuple for processing. nil if no tuples remain.
+  Dequeue an `{list, item_id}` tuple for processing. `nil` if no tuples remain.
   """
   @spec pull_item() :: {atom, non_neg_integer} | nil
   def pull_item() do
@@ -21,7 +21,7 @@ defmodule EslNews.Http.SyncLists do
   end
 
   @doc """
-  Enqueue a {list, item_id} tuple for processing.
+  Enqueue a `{list, item_id}` tuple for processing.
   """
   @spec push_item(atom, non_neg_integer | String.t()) :: :ok
   def push_item(list, item) do
@@ -57,7 +57,7 @@ defmodule EslNews.Http.SyncLists do
   end
 
   @doc """
-  Initialize by dispatching the initial call to :sync_tick
+  Initialize by dispatching the initial call to `:sync_tick`
   """
   @impl true
   @spec init(any) :: {:ok, any}
@@ -69,7 +69,8 @@ defmodule EslNews.Http.SyncLists do
   end
 
   @doc """
-  Obtain next {list, item_id} tuple and remove it from state
+  `GenServer.call/2` callback.
+  - `:pull_item` Obtain next `{list, item_id}` tuple and remove it from state
   """
   @impl true
   def handle_call(:pull_item, _from, state) do
@@ -85,12 +86,12 @@ defmodule EslNews.Http.SyncLists do
   end
 
   @doc """
-  GenServer.cast() callback.
-  - push_item: Insert a {list, item_id} tuple into state.
-  - sync_list: Fetch list item IDs from HTTP endpoint and keep only the first `@sync_items_count` entries.
-      Save the entries to a temporary upcoming Store.List, and then create empty stub Store.Story for each ID
-      before pushing the ID into the processing queue.
-  - sweep_list: Fetch list item IDs from an upcoming list and hydrate them into `EslNews.Store.Story` structs.
+  `GenServer.cast/2` callback.
+  - `:push_item` Insert a `{list, item_id}` tuple into state.
+  - `:sync_list` Fetch list item IDs from HTTP endpoint and keep only the first `@sync_items_count` entries.
+      Save the entries to a temporary upcoming `EslNews.Store.List`, and then create empty stub
+      `EslNews.Store.Story` for each ID before pushing the ID into the processing queue.
+  - `:sweep_list` Fetch list item IDs from an upcoming list and hydrate them into `EslNews.Store.Story` structs.
       Ensure no stub structs remain by checking their `type` attribute and once all are set, save the upcoming
       list as the current list. Finally, delete the upcoming list to prepare for the next sync cycle.
   """

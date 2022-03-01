@@ -2,7 +2,7 @@ defmodule EslNews.Http.Client do
   @moduledoc """
   `EslNews.Http.Client` fetches JSON objects from an HTTP API.
   """
-  use Tesla
+  use Tesla, only: [:get]
 
   plug(Tesla.Middleware.BaseUrl, "https://hacker-news.firebaseio.com/v0/")
   plug(Tesla.Middleware.JSON)

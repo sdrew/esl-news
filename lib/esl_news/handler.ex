@@ -9,10 +9,9 @@ defmodule EslNews.Handler do
   """
   @type switch_handler() :: {:switch_handler, module()} | {:switch_handler, module(), any()}
 
-  @doc """
-  `:cowboy_rest` behaviour callbacks
-  """
-  @callback init(:cowboy_req.req(), any) :: {:cowboy_rest, :cowboy_req.req(), any}
+  # =========
+  # `:cowboy_rest` behaviour callbacks
+  # =========
   @callback allowed_methods(:cowboy_req.req(), any) ::
               {[binary(), ...], :cowboy_req.req(), any}
               | {:stop, :cowboy_req.req(), any}
@@ -22,15 +21,16 @@ defmodule EslNews.Handler do
                :cowboy_req.req(), any}
               | {:stop, :cowboy_req.req(), any}
               | {switch_handler(), :cowboy_req.req(), any}
+  @callback init(:cowboy_req.req(), any) :: {:cowboy_rest, :cowboy_req.req(), any}
   @callback resource_exists(:cowboy_req.req(), any) ::
               {boolean, :cowboy_req.req(), any}
               | {:stop, :cowboy_req.req(), any}
               | {switch_handler(), :cowboy_req.req(), any}
   @optional_callbacks resource_exists: 2
 
-  @doc """
-  `EslNews.Handler` behaviour callbacks
-  """
+  # =========
+  # `EslNews.Handler` behaviour callbacks
+  # =========
   @callback response(:cowboy_req.req(), any) :: {binary, :cowboy_req.req(), any}
 
   @spec __using__(any) :: {atom(), list(), list()}
@@ -133,6 +133,9 @@ defmodule EslNews.Handler do
     |> Map.merge(:cowboy_req.bindings(request))
   end
 
+  @doc """
+  Helper to convert a string param to integer
+  """
   @spec to_integer(binary, integer) :: integer
   def to_integer(param, default \\ 0)
   def to_integer(nil, default), do: default

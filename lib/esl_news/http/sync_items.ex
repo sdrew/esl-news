@@ -13,10 +13,10 @@ defmodule EslNews.Http.SyncItems do
   @sync_empty_tick_ms 10 * 1000
 
   @doc """
-  Process a {list, item_id} tuple. Load existing Store.Story struct or create an empty stub.
-  Ignore if item has been processed, otherwise fetch from HTTP endpoint and update in :mnesia.
-  If the HTTP request fails, re-enqueue the {list, item_id} tuple with SyncLists.push_item() to
-  process it again. Worker timer backs off after 3 nil items were obtained, from `@sync_tic_ms` to
+  Process a `{list, item_id}` tuple. Load existing `EslNews.Store.Story` struct or create an empty stub.
+  Ignore if item has been processed, otherwise fetch from HTTP endpoint and update in `:mnesia`.
+  If the HTTP request fails, re-enqueue the `{list, item_id}` tuple with `EslNews.Http.SyncLists.push_item/2` to
+  process it again. Worker timer backs off after 3 `nil` items were obtained, from `@sync_tic_ms` to
   `@sync_empty_tick_ms`
   """
   @spec sync_item({atom, non_neg_integer} | nil, non_neg_integer) :: :ok
@@ -93,7 +93,7 @@ defmodule EslNews.Http.SyncItems do
   end
 
   @doc """
-  Initialize by dispatching the initial call to :sync_tick
+  Initialize by dispatching the initial call to `:sync_tick`
   """
   @impl true
   @spec init(any) :: {:ok, any}
@@ -105,8 +105,8 @@ defmodule EslNews.Http.SyncItems do
   end
 
   @doc """
-  GenServer.cast() callback.
-  - set_attempts: Update the number of attempts worker has made to obtain a valid {list, item_id} tuple.
+  `GenServer.cast/2` callback.
+  - `:set_attempts` Update the number of attempts worker has made to obtain a valid `{list, item_id}` tuple.
   """
   @impl true
   def handle_cast({:set_attempts, attempts}, state) do
@@ -114,7 +114,7 @@ defmodule EslNews.Http.SyncItems do
   end
 
   @doc """
-  On every `:sync_tick` timeout, obtain a {list, item_id} tuple to be updated and pass it to sync_item().
+  On every `:sync_tick` timeout, obtain a `{list, item_id}` tuple to be updated and pass it to `sync_item/2`.
   """
   @impl true
   def handle_info(:sync_tick, state) do

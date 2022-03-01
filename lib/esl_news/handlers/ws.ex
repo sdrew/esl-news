@@ -1,7 +1,7 @@
 defmodule EslNews.Handlers.Ws do
   @moduledoc """
-  `EslNews.Handlers.Ws` provides a JSON response for the latest available Stories through websockets
-  Implements @behaviour for `EslNews.Websocket`
+  `EslNews.Handlers.Ws` provides a JSON response for the latest available Stories through websockets.
+  Implements `@behaviour` for `EslNews.Websocket`
   """
   use EslNews.Websocket
   alias EslNews.Store.Story

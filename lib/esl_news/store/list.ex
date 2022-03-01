@@ -1,6 +1,6 @@
 defmodule EslNews.Store.List do
   @moduledoc """
-  `EslNews.Store.List` provides a mnesia schema and struct to store List objects,
+  `EslNews.Store.List` provides a `:mnesia` schema and struct to store `EslNews.Store.List` objects,
   as well as helper methods to interact with the storage table.
   """
   require Record
@@ -10,8 +10,14 @@ defmodule EslNews.Store.List do
   @struct_keys @required_keys ++ @optional_keys
   @record_tuple_size Enum.count(@struct_keys) + 1
 
+  @typedoc """
+  `EslNews.Store.List` record tuple type
+  """
   @type r ::
           {__MODULE__, atom, [non_neg_integer, ...], non_neg_integer | nil}
+  @typedoc """
+  `EslNews.Store.List` struct type
+  """
   @type t :: %__MODULE__{
           id: atom,
           items: [non_neg_integer, ...],
@@ -23,7 +29,7 @@ defmodule EslNews.Store.List do
   defstruct @struct_keys
 
   @doc """
-  List all existing EslNews.Store.List records
+  List all existing `EslNews.Store.List` records
   """
   @spec all :: list
   def all() do
@@ -39,7 +45,7 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
-  Persist an EslNews.Store.List in :mnesia
+  Persist an `EslNews.Store.List` in `:mnesia`
   """
   @spec create(EslNews.Store.List.t() | {atom, [non_neg_integer, ...]}) ::
           :ok | :record_exists | atom
@@ -64,7 +70,7 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
-  Decode a :mnesia record tuple into an EslNews.Store.List struct
+  Decode a `:mnesia` record tuple into an `EslNews.Store.List` struct
 
   ## Examples
       iex> EslNews.Store.List.decode({EslNews.Store.List, :topstories, [4,2,3,1], 54321})
@@ -83,7 +89,7 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
-  Delete an EslNews.Store.List stored in :mnesia
+  Delete an `EslNews.Store.List` stored in `:mnesia`
   """
   @spec delete(EslNews.Store.List.t()) :: :ok
   def delete(%__MODULE__{id: id}) do
@@ -96,7 +102,7 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
-  Encode an EslNews.Store.List struct into a :mnesia record tuple
+  Encode an `EslNews.Store.List` struct into a `:mnesia` record tuple
 
   ## Examples
       iex> EslNews.Store.List.encode(%EslNews.Store.List{id: :topstories, items: [4,2,3,1], time: 54321})
@@ -112,7 +118,7 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
-  Load an EslNews.Store.List stored in :mnesia or return :not_found
+  Load an `EslNews.Store.List` stored in `:mnesia` or return `:not_found`
   """
   @spec find(atom) :: {:ok, EslNews.Store.List.t()} | {:not_found, nil}
   def find(id) when is_atom(id) do
@@ -151,8 +157,8 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
-  Attributes list for :mnesia table schema definition.
-  :id must always be the first attribute
+  Attributes list for `:mnesia` table schema definition.
+  `:id` must always be the first attribute
   """
   @spec schema_attrs :: [atom, ...]
   def schema_attrs() do
@@ -160,8 +166,8 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
-  Zero-based list of attribute positions to be indexed for :mnesia table schema definition.
-  :id is indexed by default, will not be included
+  Zero-based list of attribute positions to be indexed for `:mnesia` table schema definition.
+  `:id` is indexed by default, will not be included
   """
   @spec schema_indices([atom, ...]) :: [non_neg_integer]
   def schema_indices(keys) do

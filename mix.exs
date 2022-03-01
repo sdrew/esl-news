@@ -7,7 +7,16 @@ defmodule EslNews.MixProject do
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+
+      # Docs
+      name: "ESL News",
+      source_url: "https://github.com/sdrew/esl-news",
+      homepage_url: "https://github.com/sdrew/esl-news",
+      docs: [
+        main: "EslNews",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -24,6 +33,7 @@ defmodule EslNews.MixProject do
     [
       {:cowboy, "~> 2.9"},
       {:credo, "~> 1.6", only: [:dev, :test]},
+      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
       {:hackney, "~> 1.18"},
       {:socket, "~> 0.3.13", only: [:test]},
       {:tesla, "~> 1.4"}
