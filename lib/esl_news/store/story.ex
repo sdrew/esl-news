@@ -79,7 +79,12 @@ defmodule EslNews.Store.Story do
   @doc """
   Persist an EslNews.Store.Story in :mnesia
   """
-  @spec create(EslNews.Store.Story.t()) :: :ok | :record_exists | atom
+  @spec create(EslNews.Store.Story.t() | non_neg_integer) :: :ok | :record_exists | atom
+  def create(id) when is_integer(id) do
+    fields = %{id: id}
+    create(struct(__MODULE__, fields))
+  end
+
   def create(%__MODULE__{id: id} = state) when is_integer(id) do
     {:atomic, reason} =
       :mnesia.transaction(fn ->
@@ -161,6 +166,25 @@ defmodule EslNews.Store.Story do
               |> __MODULE__.decode()
 
             {:ok, record}
+        end
+      end)
+
+    reason
+  end
+
+  @doc """
+  Update an existing EslNews.Store.Story in :mnesia
+  """
+  @spec save(EslNews.Store.Story.t()) :: :ok | :not_found | atom
+  def save(%__MODULE__{id: id} = state) when is_integer(id) do
+    {:atomic, reason} =
+      :mnesia.transaction(fn ->
+        case :mnesia.wread({__MODULE__, id}) do
+          [] ->
+            :not_found
+
+          _ ->
+            __MODULE__.encode(state) |> :mnesia.write()
         end
       end)
 

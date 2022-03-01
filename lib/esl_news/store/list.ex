@@ -41,7 +41,13 @@ defmodule EslNews.Store.List do
   @doc """
   Persist an EslNews.Store.List in :mnesia
   """
-  @spec create(EslNews.Store.List.t()) :: :ok | :record_exists | atom
+  @spec create(EslNews.Store.List.t() | {atom, [non_neg_integer, ...]}) ::
+          :ok | :record_exists | atom
+  def create({id, items}) when is_atom(id) do
+    fields = %{id: id, items: items, time: :os.system_time(:seconds)}
+    create(struct(__MODULE__, fields))
+  end
+
   def create(%__MODULE__{id: id} = state) when is_atom(id) do
     {:atomic, reason} =
       :mnesia.transaction(fn ->
