@@ -35,6 +35,7 @@ defmodule EslNews.MixProject do
       {:credo, "~> 1.6", only: [:dev, :test]},
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
       {:hackney, "~> 1.18"},
+      {:jason, "~> 1.3.0"},
       {:socket, "~> 0.3.13", only: [:test]},
       {:tesla, "~> 1.4"}
     ]

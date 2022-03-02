@@ -66,5 +66,6 @@ function setupWS(ws_uri) {
   return socket;
 }
 
-const ws_uri = document.location.href.replace(/https?/, 'ws') + 'api/ws';
+const scheme = document.location.protocol === 'https:' ? 'wss' : 'ws';
+const ws_uri = document.location.href.replace(/^https?/, scheme) + 'api/ws';
 const eslnews = setupWS(ws_uri);
