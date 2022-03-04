@@ -157,6 +157,30 @@ defmodule EslNews.Store.List do
   end
 
   @doc """
+  Update an existing `EslNews.Store.List` in `:mnesia`
+  """
+  @spec save(EslNews.Store.List.t() | {atom, [non_neg_integer, ...]}) :: :ok | :not_found | atom
+  def save({id, items}) when is_atom(id) do
+    fields = %{id: id, items: items, time: :os.system_time(:seconds)}
+    save(struct(__MODULE__, fields))
+  end
+
+  def save(%__MODULE__{id: id} = state) when is_atom(id) do
+    {:atomic, reason} =
+      :mnesia.transaction(fn ->
+        case :mnesia.wread({__MODULE__, id}) do
+          [] ->
+            __MODULE__.encode(state) |> :mnesia.write()
+
+          _ ->
+            __MODULE__.encode(state) |> :mnesia.write()
+        end
+      end)
+
+    reason
+  end
+
+  @doc """
   Attributes list for `:mnesia` table schema definition.
   `:id` must always be the first attribute
   """

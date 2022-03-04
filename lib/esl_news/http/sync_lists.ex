@@ -113,7 +113,7 @@ defmodule EslNews.Http.SyncLists do
       |> Enum.slice(0, @sync_items_count)
 
     list_id = String.to_atom("#{list}_u")
-    StoreList.create({list_id, items})
+    StoreList.save({list_id, items})
 
     items
     |> Enum.each(fn id ->
@@ -135,7 +135,7 @@ defmodule EslNews.Http.SyncLists do
       |> if do
         Logger.info("Set upcoming list to current: #{list}")
 
-        StoreList.create({list, upcoming.items})
+        StoreList.save({list, upcoming.items})
         StoreList.delete(upcoming)
       end
     end
